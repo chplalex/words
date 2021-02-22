@@ -4,7 +4,7 @@ import android.view.View
 import com.google.android.material.textfield.TextInputEditText
 
 fun TextInputEditText.isNullOrEmpty() = text.isNullOrEmpty()
-fun TextInputEditText.isNotNullNotEmpty() = text != null && !text.toString().isEmpty()
+fun TextInputEditText.isNotNullNotEmpty() = text != null && text.toString().isNotEmpty()
 fun TextInputEditText.makeEmpty() { setText("") }
 
 fun View.makeEnabled() { isEnabled = true }

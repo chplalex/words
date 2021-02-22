@@ -1,11 +1,11 @@
-package com.chplalex.words.ui.fragment
+package com.chplalex.words.ui.fragment.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.chplalex.words.mvp.contract.IPresenter
 import com.chplalex.words.mvp.contract.IView
-import com.chplalex.words.mvp.model.AppState
+import com.chplalex.words.mvp.model.data.AppState
 
 abstract class BaseFragment<T: AppState>(@LayoutRes resId: Int) : Fragment(resId), IView {
     protected lateinit var presenter: IPresenter<T, IView>

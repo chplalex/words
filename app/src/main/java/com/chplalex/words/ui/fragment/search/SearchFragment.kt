@@ -1,4 +1,4 @@
-package com.chplalex.words.ui.fragment
+package com.chplalex.words.ui.fragment.search
 
 import android.os.Bundle
 import android.text.Editable

@@ -1,4 +1,4 @@
-package com.chplalex.words.mvp.model
+package com.chplalex.words.mvp.model.data
 
 import com.google.gson.annotations.SerializedName
 

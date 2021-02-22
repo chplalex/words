@@ -1,4 +1,4 @@
-package com.chplalex.words.ui.fragment
+package com.chplalex.words.ui.fragment.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
-import com.chplalex.words.mvp.model.DataModel
+import com.chplalex.words.mvp.model.data.DataModel
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,
-    private val dataList: List<DataModel>
+    private var dataList: List<DataModel>
 ) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
@@ -25,6 +25,11 @@ class MainAdapter(
     }
 
     override fun getItemCount() = dataList.size
+
+    fun setData(dataList: List<DataModel>) {
+        this.dataList = dataList
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
