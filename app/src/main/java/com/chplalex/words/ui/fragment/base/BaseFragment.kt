@@ -32,10 +32,10 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes resId: 
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {
-        AlertDialogFragment.newInstance(title, message).show(requireFragmentManager(), DIALOG_FRAGMENT_TAG)
+        AlertDialogFragment.newInstance(title, message).show(parentFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
-    private fun isDialogNull() = requireFragmentManager().findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
+    private fun isDialogNull() = parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
 
     abstract fun renderData(appState: T)
 

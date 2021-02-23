@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
@@ -50,7 +51,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
         override fun onClick(v: View?) {
             SearchFragment.newInstance().also {
                 it.setOnSearchClickListener(onSearchClickListener)
-                it.show(requireFragmentManager(), SEARCH_FRAGMENT_TAG)
+                it.show(parentFragmentManager, SEARCH_FRAGMENT_TAG)
             }
         }
     }

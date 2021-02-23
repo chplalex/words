@@ -19,7 +19,7 @@ class RetrofitImpl : IDataSource<List<DataModel>> {
         .create(ApiService::class.java)
 
     private fun createRetrofit(interceptor: Interceptor) = Retrofit.Builder()
-        .baseUrl(BASE_URL_LOCATIONS)
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(createOkHttpClient(interceptor))
@@ -31,6 +31,6 @@ class RetrofitImpl : IDataSource<List<DataModel>> {
         .build()
 
     companion object {
-        private const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"
+        private const val BASE_URL = "https://dictionary.skyeng.ru/api/public/v1/"
     }
 }

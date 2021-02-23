@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -9,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.chplalex.words"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -33,20 +34,35 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    //AndroidX
+    implementation 'androidx.appcompat:appcompat:1.3.0-beta01'
+    implementation 'com.android.support:multidex:1.0.3'
+
+    //Design
     implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    // Rx-Java
+
+    //Kotlin
+    implementation 'androidx.core:core-ktx:1.3.2'
+
+    //Rx-Java
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.9'
-    // Retrofit 2
+
+    //Retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0'
 
+    //Dagger
+    implementation 'com.google.dagger:dagger-android:2.17'
+    implementation 'com.google.dagger:dagger-android-support:2.17'
+    kapt 'com.google.dagger:dagger-android-processor:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
+
+    //Test
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
