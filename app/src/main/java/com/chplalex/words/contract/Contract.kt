@@ -1,6 +1,6 @@
-package com.chplalex.words.mvp.contract
+package com.chplalex.words.contract
 
-import com.chplalex.words.mvp.model.data.AppState
+import com.chplalex.words.model.data.AppState
 import io.reactivex.rxjava3.core.Observable
 
 interface IView {

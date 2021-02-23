@@ -1,7 +1,7 @@
-package com.chplalex.words.mvp.model.datasource
+package com.chplalex.words.model.datasource
 
-import com.chplalex.words.mvp.contract.IDataSource
-import com.chplalex.words.mvp.model.data.DataModel
+import com.chplalex.words.contract.IDataSource
+import com.chplalex.words.model.data.DataModel
 import io.reactivex.rxjava3.core.Observable
 
 class DataSourceRemote(

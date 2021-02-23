@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/layout_success"
+        android:id="@+id/layout_working"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent">
@@ -47,27 +47,5 @@
             android:layout_height="wrap_content"/>
 
     </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_error"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/text_view_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textview_error"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_reload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_reload"/>
-
-    </LinearLayout>
 
 </FrameLayout>

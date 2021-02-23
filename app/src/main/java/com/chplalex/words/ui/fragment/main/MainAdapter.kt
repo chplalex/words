@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
-import com.chplalex.words.mvp.model.data.DataModel
+import com.chplalex.words.model.data.DataModel
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,
-    private var dataList: List<DataModel>
 ) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+
+    private var dataList: List<DataModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater

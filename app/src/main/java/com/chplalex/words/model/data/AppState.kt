@@ -1,4 +1,4 @@
-package com.chplalex.words.mvp.model.data
+package com.chplalex.words.model.data
 
 sealed class AppState {
     data class Success(val data: List<DataModel>?) : AppState()

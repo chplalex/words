@@ -80,7 +80,7 @@ class SearchFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-
+        const val SEARCH_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
         fun newInstance() = SearchFragment()
     }
 }

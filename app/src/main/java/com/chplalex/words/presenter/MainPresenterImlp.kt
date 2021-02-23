@@ -1,12 +1,12 @@
-package com.chplalex.words.mvp.presenter
+package com.chplalex.words.presenter
 
-import com.chplalex.words.mvp.contract.IPresenter
-import com.chplalex.words.mvp.contract.IView
-import com.chplalex.words.mvp.model.data.AppState
-import com.chplalex.words.mvp.model.datasource.DataSourceLocal
-import com.chplalex.words.mvp.model.datasource.DataSourceRemote
-import com.chplalex.words.mvp.model.datasource.MainInteractor
-import com.chplalex.words.mvp.model.datasource.RepositoryImpl
+import com.chplalex.words.contract.IPresenter
+import com.chplalex.words.contract.IView
+import com.chplalex.words.model.data.AppState
+import com.chplalex.words.model.datasource.DataSourceLocal
+import com.chplalex.words.model.datasource.DataSourceRemote
+import com.chplalex.words.model.datasource.MainInteractor
+import com.chplalex.words.model.datasource.RepositoryImpl
 import com.chplalex.words.rx.SchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver
