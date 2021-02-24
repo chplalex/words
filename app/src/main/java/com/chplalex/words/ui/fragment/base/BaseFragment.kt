@@ -1,20 +1,26 @@
 package com.chplalex.words.ui.fragment.base
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.chplalex.words.R
 import com.chplalex.words.contract.IInteractor
 import com.chplalex.words.isOnline
 import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment
 import com.chplalex.words.viewmodel.BaseViewModel
 
-abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes resId: Int) : Fragment(resId) {
+abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private val resId: Int) : Fragment() {
 
     abstract val model: BaseViewModel<T>
 
     protected var isNetworkAviable: Boolean = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ) = inflater.inflate(resId, container)
 
     override fun onResume() {
         super.onResume()

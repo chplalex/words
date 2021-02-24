@@ -1,5 +1,6 @@
 package com.chplalex.words.ui.fragment.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -19,6 +20,8 @@ import com.chplalex.words.ui.fragment.search.SearchFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
 import com.chplalex.words.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_main) {
 
@@ -28,6 +31,9 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     private lateinit var layoutLoading: FrameLayout
 
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override lateinit var model: MainViewModel
 
@@ -56,11 +62,15 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
         }
     }
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //model = viewModelFactory.create(MainViewModel::class.java)
-        model = MainViewModel()
+        model = viewModelFactory.create(MainViewModel::class.java)
         model.subscribe().observe(this, Observer<AppState> { renderData(it) })
     }
 
