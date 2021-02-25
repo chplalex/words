@@ -26,17 +26,17 @@ import javax.inject.Inject
 
 class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_main) {
 
-    private lateinit var progressBarHorizontal: ProgressBar
-    private lateinit var progressBarRound: ProgressBar
-    private lateinit var layoutWorking: FrameLayout
-    private lateinit var layoutLoading: FrameLayout
-
-    private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override lateinit var model: MainViewModel
+
+    private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
+
+    private lateinit var progressBarHorizontal: ProgressBar
+    private lateinit var progressBarRound: ProgressBar
+    private lateinit var layoutWorking: FrameLayout
+    private lateinit var layoutLoading: FrameLayout
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
         override fun onItemClick(data: DataModel) {
