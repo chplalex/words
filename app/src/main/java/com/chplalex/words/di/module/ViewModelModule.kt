@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(includes = [InteractorModule::class])
+@Module
 internal abstract class ViewModelModule {
 
     @Binds

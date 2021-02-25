@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
@@ -35,7 +36,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override val model: MainViewModel by lazy { viewModelFactory.create(MainViewModel::class.java) }
+    override lateinit var model: MainViewModel
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
         override fun onItemClick(data: DataModel) {
@@ -63,13 +64,15 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     }
 
     override fun onAttach(context: Context) {
-        TranslatorApp.instance.appComponent.inject(this)
+
         super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setRetainInstance(true)
+        TranslatorApp.instance.appComponent.inject(this)
+        val viewModelProvider = ViewModelProviders.of(this, viewModelFactory)
+        model = viewModelProvider.get(MainViewModel::class.java)
         model.subscribe().observe(this, Observer<AppState> { renderData(it) })
     }
 

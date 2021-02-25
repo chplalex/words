@@ -1,6 +1,5 @@
 package com.chplalex.words.di.module
 
-import com.chplalex.words.ui.TranslatorApp
 import dagger.Module
 import dagger.Provides
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
