@@ -2,6 +2,7 @@ package com.chplalex.words.ui.fragment.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ) = inflater.inflate(resId, container)
+    ): View = inflater.inflate(resId, container, false)
 
     override fun onResume() {
         super.onResume()

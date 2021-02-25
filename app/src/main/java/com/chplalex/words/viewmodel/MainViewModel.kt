@@ -7,13 +7,9 @@ import com.chplalex.words.model.datasource.DataSourceRemote
 import com.chplalex.words.model.datasource.MainInteractor
 import com.chplalex.words.model.datasource.RepositoryImpl
 import io.reactivex.rxjava3.observers.DisposableObserver
+import javax.inject.Inject
 
-class MainViewModel(
-    private val interactor: MainInteractor = MainInteractor(
-        RepositoryImpl(DataSourceRemote()),
-        RepositoryImpl(DataSourceLocal())
-    )
-) : BaseViewModel<AppState>() {
+class MainViewModel @Inject constructor(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
     private var appState: AppState? = null
 

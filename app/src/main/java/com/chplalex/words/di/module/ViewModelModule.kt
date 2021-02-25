@@ -7,6 +7,7 @@ import com.chplalex.words.di.ViewModelKey
 import com.chplalex.words.viewmodel.MainViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module(includes = [InteractorModule::class])
