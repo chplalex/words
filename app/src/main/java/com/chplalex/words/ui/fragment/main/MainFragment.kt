@@ -69,6 +69,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setRetainInstance(true)
         model.subscribe().observe(this, Observer<AppState> { renderData(it) })
     }
 
