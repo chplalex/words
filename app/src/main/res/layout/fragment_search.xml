@@ -1,0 +1,53 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_fragment_searсh"
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="15dp">
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/button_search"
+            android:layout_gravity="end"/>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+                android:id="@+id/image_view_clear_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_clear"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:contentDescription="@string/content_description_clear"/>
+
+    </FrameLayout>
+
+</LinearLayout>

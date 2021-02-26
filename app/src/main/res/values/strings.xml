@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">words</string>
+    <string name="fab_content_description">Word search</string>
+    <string name="button_search">Search</string>
+    <string name="search_hint">type word for search</string>
+    <string name="content_description_clear">Clear input string</string>
+    <string name="textview_error">Error</string>
+    <string name="button_reload">Reload</string>
+    <string name="undefined_error">Underfined error</string>
+    <string name="empty_server_response_on_success">Empty server response on success</string>
 </resources>
