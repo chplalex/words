@@ -4,23 +4,18 @@ import com.chplalex.words.contract.IDataSource
 import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.model.data.Meanings
 import com.chplalex.words.model.data.Translation
-import io.reactivex.rxjava3.core.Observable
 
 class RoomImpl : IDataSource<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<DataModel>> {
-        return Observable.just(
+    override suspend fun getData(word: String): List<DataModel> = listOf(
+        DataModel(
+            word,
             arrayListOf(
-                DataModel(
-                    word,
-                    arrayListOf(
-                        Meanings(
-                            Translation("Locale repository is not implemented yet"),
-                            null
-                        )
-                    )
+                Meanings(
+                    Translation("Locale repository is not implemented yet"),
+                    null
                 )
             )
         )
-    }
+    )
 }

@@ -1,7 +1,6 @@
 package com.chplalex.words.contract
 
 import com.chplalex.words.model.data.AppState
-import io.reactivex.rxjava3.core.Observable
 
 interface IView {
     fun renderData(appState: AppState)
@@ -14,13 +13,13 @@ interface IPresenter<T: AppState, V: IView> {
 }
 
 interface IInteractor<T> {
-    fun getData(word: String, fromRemoteSource: Boolean): Observable<T>
+    suspend fun getData(word: String, fromRemoteSource: Boolean): T
 }
 
 interface IRepository<T> {
-    fun getData(word: String): Observable<T>
+    suspend fun getData(word: String): T
 }
 
 interface IDataSource<T> {
-    fun getData(word: String): Observable<T>
+    suspend fun getData(word: String): T
 }

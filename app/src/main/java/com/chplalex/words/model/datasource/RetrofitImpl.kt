@@ -2,8 +2,7 @@ package com.chplalex.words.model.datasource
 
 import com.chplalex.words.contract.IDataSource
 import com.chplalex.words.model.data.DataModel
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
-import io.reactivex.rxjava3.core.Observable
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,8 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImpl : IDataSource<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<DataModel>> = getService(BaseInterceptor.interceptor)
-        .search(word)
+    override suspend fun getData(word: String): List<DataModel> = getService(BaseInterceptor.interceptor)
+        .searchAsync(word)
+        .await()
 
     private fun getService(interceptor: Interceptor) = createRetrofit(interceptor)
         .create(ApiService::class.java)
@@ -21,7 +21,7 @@ class RetrofitImpl : IDataSource<List<DataModel>> {
     private fun createRetrofit(interceptor: Interceptor) = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(createOkHttpClient(interceptor))
         .build()
 
