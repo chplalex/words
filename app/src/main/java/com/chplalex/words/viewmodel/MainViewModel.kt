@@ -2,14 +2,10 @@ package com.chplalex.words.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.datasource.DataSourceLocal
-import com.chplalex.words.model.datasource.DataSourceRemote
 import com.chplalex.words.model.datasource.MainInteractor
-import com.chplalex.words.model.datasource.RepositoryImpl
 import io.reactivex.rxjava3.observers.DisposableObserver
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
+class MainViewModel constructor(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
     private var appState: AppState? = null
 
