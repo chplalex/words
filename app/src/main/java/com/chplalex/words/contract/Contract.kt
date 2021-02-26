@@ -1,26 +1,26 @@
-package com.chplalex.words.mvp.contract
+package com.chplalex.words.contract
 
-import com.chplalex.words.mvp.model.AppState
+import com.chplalex.words.model.data.AppState
 import io.reactivex.rxjava3.core.Observable
 
-interface View {
+interface IView {
     fun renderData(appState: AppState)
 }
 
-interface Presenter<T: AppState, V: View> {
-    fun attachView(view: View)
-    fun detachView(view: View)
+interface IPresenter<T: AppState, V: IView> {
+    fun attachView(view: IView)
+    fun detachView(view: IView)
     fun getData(word: String, isOnline: Boolean)
 }
 
-interface Interactor<T> {
+interface IInteractor<T> {
     fun getData(word: String, fromRemoteSource: Boolean): Observable<T>
 }
 
-interface Repository<T> {
+interface IRepository<T> {
     fun getData(word: String): Observable<T>
 }
 
-interface DataSource<T> {
+interface IDataSource<T> {
     fun getData(word: String): Observable<T>
 }
