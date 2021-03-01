@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">words</string>
+    <string name="app_name">Translator</string>
+    <string name="fab_content_description">Word search</string>
+    <string name="button_search">Search</string>
+    <string name="search_hint">type word for search</string>
+    <string name="content_description_clear">Clear input string</string>
+    <string name="textview_error">Error</string>
+    <string name="button_reload">Reload</string>
+    <string name="undefined_error">Underfined error</string>
+    <string name="empty_server_response_on_success">Empty server response on success</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_title_stub">Undefined error</string>
+    <string name="dialog_title_device_is_offline">No internet connection</string>
+    <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check internet connection.</string>
+    <string name="error_stub">Error</string>
+    <string name="dialog_tittle_sorry">Sorry</string>
 </resources>
