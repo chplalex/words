@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
 import com.chplalex.words.model.data.DataModel
+import com.chplalex.words.utils.convertMeaningsToString
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,
@@ -40,10 +41,10 @@ class MainAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 header.text = data.word
-                description.text = data.meanings?.get(0)?.translation?.text
-
+                description.text = convertMeaningsToString(data.meanings!!)
                 itemView.setOnClickListener { onListItemClickListener.onItemClick(data) }
             }
+
         }
     }
 

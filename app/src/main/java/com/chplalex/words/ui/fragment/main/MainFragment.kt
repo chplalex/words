@@ -14,8 +14,10 @@ import com.chplalex.words.model.data.AppState
 import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.model.datasource.MainInteractor
 import com.chplalex.words.ui.fragment.base.BaseFragment
+import com.chplalex.words.ui.fragment.description.DescriptionFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
+import com.chplalex.words.utils.convertMeaningsToString
 import com.chplalex.words.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,7 +36,10 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
         override fun onItemClick(data: DataModel) {
-            Toast.makeText(context, data.word, Toast.LENGTH_SHORT).show()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, DescriptionFragment.newInstance(data.word, convertMeaningsToString(data.meanings!!), data.meanings[0].imageUrl))
+                .commit()
         }
     }
 

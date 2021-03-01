@@ -11,6 +11,7 @@ import com.chplalex.words.contract.IInteractor
 import com.chplalex.words.isOnline
 import com.chplalex.words.model.data.AppState
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment
+import com.chplalex.words.ui.fragment.alert.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.words.viewmodel.BaseViewModel
 
 abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private val resId: Int) : Fragment() {
@@ -26,7 +27,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     override fun onResume() {
         super.onResume()
         isNetworkAviable = isOnline(requireContext())
-        if (!isNetworkAviable && isDialogNull()) {
+        if (!isNetworkAviable && isAlertDialogNull()) {
             showNoInternetConnectionDialog()
         }
     }
@@ -39,14 +40,11 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {
-        AlertDialogFragment.newInstance(title, message).show(parentFragmentManager, DIALOG_FRAGMENT_TAG)
+        AlertDialogFragment.newInstance(title, message).show(parentFragmentManager, ALERT_DIALOG_FRAGMENT_TAG)
     }
 
-    private fun isDialogNull() = parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
+    private fun isAlertDialogNull() = parentFragmentManager.findFragmentByTag(ALERT_DIALOG_FRAGMENT_TAG) == null
 
     abstract fun renderData(appState: T)
 
-    companion object {
-        private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
-    }
 }

@@ -17,6 +17,7 @@ class AlertDialogFragment : AppCompatDialogFragment() {
 
     companion object {
 
+        const val ALERT_DIALOG_FRAGMENT_TAG = "0c38bcdc-587f-41a6-8ea2-15def4929ffc"
         private const val TITLE_EXTRA = "89cbce59-e28f-418f-b470-ff67125c2e2f"
         private const val MESSAGE_EXTRA = "0dd00b66-91c2-447d-b627-530065040905"
 
