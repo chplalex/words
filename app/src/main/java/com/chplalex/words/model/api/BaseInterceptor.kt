@@ -1,4 +1,4 @@
-package com.chplalex.words.model.datasource
+package com.chplalex.words.model.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

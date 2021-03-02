@@ -1,4 +1,4 @@
-package com.chplalex.words.model.datasource
+package com.chplalex.words.model.api
 
 import com.chplalex.words.model.data.DataModel
 import kotlinx.coroutines.Deferred

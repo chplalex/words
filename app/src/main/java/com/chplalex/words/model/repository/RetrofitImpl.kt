@@ -1,7 +1,9 @@
-package com.chplalex.words.model.datasource
+package com.chplalex.words.model.repository
 
 import com.chplalex.words.contract.IDataSource
 import com.chplalex.words.model.data.DataModel
+import com.chplalex.words.model.api.ApiService
+import com.chplalex.words.model.api.BaseInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

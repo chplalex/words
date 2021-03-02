@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -17,10 +17,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.chplalex.words.R
 import com.chplalex.words.isOnline
+import com.chplalex.words.makeInVisible
+import com.chplalex.words.makeVisible
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.words.utils.SquareImageView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
@@ -30,7 +33,9 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     private lateinit var descriptionHeader: TextView
     private lateinit var descriptionBody: TextView
     private lateinit var descriptionImage: SquareImageView
+    private lateinit var descriptionFooter: TextView
     private lateinit var fragmentLayout: SwipeRefreshLayout
+    private lateinit var progress: LinearProgressIndicator
 
     private var imageLoader = ImageLoader.Picasso
 
@@ -55,8 +60,10 @@ class DescriptionFragment : BottomSheetDialogFragment() {
         descriptionHeader = view.findViewById(R.id.description_header)
         descriptionBody = view.findViewById(R.id.description_body)
         descriptionImage = view.findViewById(R.id.description_image)
+        descriptionFooter = view.findViewById(R.id.description_footer)
         fragmentLayout = view.findViewById(R.id.layout_fragment_description)
         fragmentLayout.setOnRefreshListener { startLoadingOrShowError() }
+        progress = view.findViewById(R.id.description_progress)
     }
 
     private fun startLoadingOrShowError() {
@@ -81,25 +88,25 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     }
 
     private fun setData() {
-        arguments?.let {
-            descriptionHeader.text = "${it.getString(WORD_EXTRA)} (loaded by ${imageLoader.loaderName})"
-            descriptionBody.text = it.getString(DESCRIPTION_EXTRA)
-            val imageLink = it.getString(URL_EXTRA)
-            if (imageLink.isNullOrBlank()) {
+        val args: DescriptionFragmentArgs by navArgs()
+        with(args) {
+            descriptionHeader.text = word
+            descriptionBody.text = description
+            descriptionFooter.text = "(image loaded by %s)".format(imageLoader.loaderName)
+                if (imageUrl.isNullOrBlank()) {
                 stopRefreshAnimationIfNeeded()
             } else {
+                showProgress()
                 when (imageLoader) {
                     ImageLoader.Picasso -> {
-                        loadImageWithPicasso(descriptionImage, imageLink)
+                        loadImageWithPicasso(descriptionImage, imageUrl)
                         imageLoader = ImageLoader.Glide
                     }
                     ImageLoader.Glide -> {
-                        loadImageWithGlide(descriptionImage, imageLink)
+                        loadImageWithGlide(descriptionImage, imageUrl)
                         imageLoader = ImageLoader.Picasso
                     }
                 }
-
-
             }
         }
     }
@@ -111,9 +118,12 @@ class DescriptionFragment : BottomSheetDialogFragment() {
             .into(imageView, object : Callback {
                 override fun onSuccess() {
                     stopRefreshAnimationIfNeeded()
+                    hideProgress()
                 }
+
                 override fun onError(e: Exception?) {
                     stopRefreshAnimationIfNeeded()
+                    hideProgress()
                     imageView.setImageResource(R.drawable.ic_load_error)
                 }
             })
@@ -130,6 +140,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
                     isFirstResource: Boolean
                 ): Boolean {
                     stopRefreshAnimationIfNeeded()
+                    hideProgress()
                     imageView.setImageResource(R.drawable.ic_load_error)
                     return false
                 }
@@ -142,6 +153,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
                     isFirstResource: Boolean
                 ): Boolean {
                     stopRefreshAnimationIfNeeded()
+                    hideProgress()
                     return false
                 }
             })
@@ -153,20 +165,12 @@ class DescriptionFragment : BottomSheetDialogFragment() {
             .into(imageView)
     }
 
-    companion object {
+    private fun showProgress() {
+        progress.makeVisible()
+    }
 
-        private const val WORD_EXTRA = "f76a288a-5dcc-43f1-ba89-7fe1d53f63b0"
-        private const val DESCRIPTION_EXTRA = "0eeb92aa-520b-4fd1-bb4b-027fbf963d9a"
-        private const val URL_EXTRA = "6e4b154d-e01f-4953-a404-639fb3bf7281"
-
-        fun newInstance(word: String, description: String, url: String?) = DescriptionFragment().also {
-            it.arguments = Bundle().apply {
-                putString(WORD_EXTRA, word)
-                putString(DESCRIPTION_EXTRA, description)
-                putString(URL_EXTRA, url)
-            }
-        }
-
+    private fun hideProgress() {
+        progress.makeInVisible()
     }
 
     private enum class ImageLoader(val loaderName: String) {
@@ -174,3 +178,4 @@ class DescriptionFragment : BottomSheetDialogFragment() {
         Glide("Glide")
     }
 }
+

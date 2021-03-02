@@ -2,13 +2,13 @@ package com.chplalex.words.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.chplalex.words.model.data.AppState
-import com.chplalex.words.ui.fragment.main.MainInteractor
+import com.chplalex.words.ui.fragment.history.HistoryInteractor
 import com.chplalex.words.utils.parseSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
+class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 

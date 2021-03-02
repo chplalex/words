@@ -4,19 +4,27 @@ import com.chplalex.words.model.data.AppState
 import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.model.data.Meanings
 
-fun parseSearchResults(appState: AppState): AppState {
-    val newSearchResults = arrayListOf<DataModel>()
+fun parseSearchResults(appState: AppState, isOnline: Boolean) = AppState.Success(mapResult(appState, isOnline))
 
-    if (appState is AppState.Success) {
-        val searchResults = appState.data
-        if (!searchResults.isNullOrEmpty()) {
-            for (searchResult in searchResults) {
-                parseResult(searchResult, newSearchResults)
-            }
+//fun parseRemoteSearchResults(appState: AppState) = AppState.Success(mapResult(appState, true))
+
+//fun parseLocalSearchResults(appState: AppState) = AppState.Success(mapResult(appState, false))
+
+private fun mapResult(state: AppState, isOnline: Boolean): List<DataModel> {
+    val newSearchResults = arrayListOf<DataModel>()
+    if (state is AppState.Success) { getSuccessResultData(state, isOnline, newSearchResults) }
+    return newSearchResults
+}
+
+private fun getSuccessResultData(state: AppState.Success, isOnline: Boolean, newSearchResults: ArrayList<DataModel>) {
+    val searchResults: List<DataModel> = state.data as List<DataModel>
+    if (searchResults.isNotEmpty()) {
+        if (isOnline) {
+            for (searchResult in searchResults) { parseResult(searchResult, newSearchResults) }
+        } else {
+            for (searchResult in searchResults) { newSearchResults.add(DataModel(searchResult.word, arrayListOf())) }
         }
     }
-
-    return AppState.Success(newSearchResults)
 }
 
 private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
