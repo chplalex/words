@@ -1,6 +1,5 @@
 package com.chplalex.words.ui.fragment.main
 
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -15,7 +14,6 @@ import com.chplalex.words.model.data.imageUrl
 import com.chplalex.words.ui.fragment.base.BaseFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
-import com.chplalex.words.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +26,8 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
 
     override lateinit var model: MainViewModel
+
+    override val titleRes = R.string.title_main
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
@@ -59,12 +59,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViewModel()
-    }
-
-    private fun initViewModel() {
+    override fun initViewModel() {
         val viewModel: MainViewModel by viewModel()
         model = viewModel
         model.subscribe().observe(this, Observer<AppState> { renderData(it) })

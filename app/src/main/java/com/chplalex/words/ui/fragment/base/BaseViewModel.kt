@@ -1,4 +1,4 @@
-package com.chplalex.words.viewmodel
+package com.chplalex.words.ui.fragment.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

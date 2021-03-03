@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true">
 
     <FrameLayout
-        android:id="@+id/fragment_history_layout_working"
+        android:id="@+id/layout_working"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">

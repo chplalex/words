@@ -1,6 +1,5 @@
 package com.chplalex.words.ui.fragment.history
 
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,7 +8,6 @@ import com.chplalex.words.R
 import com.chplalex.words.model.data.AppState
 import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.ui.fragment.base.BaseFragment
-import com.chplalex.words.viewmodel.HistoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragment_history) {
@@ -18,12 +16,14 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragm
 
     override lateinit var model: HistoryViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViewModel()
+    override val titleRes = R.string.title_history
+
+    override fun onResume() {
+        super.onResume()
+        model.getData("", false)
     }
 
-    private fun initViewModel() {
+    override fun initViewModel() {
         val viewModel: HistoryViewModel by viewModel()
         model = viewModel
         model.subscribe().observe(this, Observer<AppState> { renderData(it) })

@@ -2,6 +2,7 @@ package com.chplalex.words.ui
 
 import android.app.Application
 import com.chplalex.words.di.module.application
+import com.chplalex.words.di.module.historyFragment
 import com.chplalex.words.di.module.mainFragment
 import com.chplalex.words.di.module.navigation
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ class TranslatorApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
-            modules(listOf(application, navigation, mainFragment))
+            modules(listOf(application, navigation, mainFragment, historyFragment))
         }
     }
 }

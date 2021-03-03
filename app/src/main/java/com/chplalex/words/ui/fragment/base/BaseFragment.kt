@@ -16,7 +16,6 @@ import com.chplalex.words.model.data.AppState
 import com.chplalex.words.model.data.DataModel
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment
 import com.chplalex.words.ui.fragment.alert.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
-import com.chplalex.words.viewmodel.BaseViewModel
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
@@ -24,12 +23,22 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
 
     abstract val model: BaseViewModel<T>
 
+    abstract val titleRes: Int
+
     protected var isNetworkAviable: Boolean = false
 
     protected lateinit var indicatorLinear: LinearProgressIndicator
     protected lateinit var indicatorCircular: CircularProgressIndicator
     protected lateinit var layoutWorking: FrameLayout
     protected lateinit var layoutLoading: FrameLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViewModel()
+        activity?.title = getString(titleRes)
+    }
+
+    abstract fun initViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,7 +52,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     protected open fun initViews(view: View) {
         indicatorLinear = view.findViewById(R.id.indicator_linear)
         indicatorCircular = view.findViewById(R.id.indicator_circular)
-        layoutWorking = view.findViewById(R.id.fragment_main_layout_working)
+        layoutWorking = view.findViewById(R.id.layout_working)
         layoutLoading = view.findViewById(R.id.layout_loading)
     }
 

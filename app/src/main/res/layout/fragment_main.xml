@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/fragment_main_layout_working"
+        android:id="@+id/layout_working"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent">
