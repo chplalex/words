@@ -1,2 +1,7 @@
+include ':history'
+include ':model'
+include ':utils'
+include ':repo'
+include ':base'
 include ':app'
 rootProject.name = "words"

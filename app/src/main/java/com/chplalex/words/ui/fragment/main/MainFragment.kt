@@ -7,19 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.words.R
 import com.chplalex.words.isOnline
-import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.data.DataModel
-import com.chplalex.words.model.data.description
-import com.chplalex.words.model.data.imageUrl
-import com.chplalex.words.ui.fragment.base.BaseFragment
+import com.chplalex.model.AppState
+import com.chplalex.model.DataModel
+import com.chplalex.model.description
+import com.chplalex.model.imageUrl
+import com.chplalex.base.BaseFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_main) {
+class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState, MainInteractor>(R.layout.fragment_main) {
 
     private val navController by inject<NavController> { parametersOf(requireActivity()) }
 
@@ -31,7 +30,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
-        override fun onItemClick(data: DataModel) {
+        override fun onItemClick(data: com.chplalex.model.DataModel) {
             val action = MainFragmentDirections.actionMainToDescription(
                 word = data.word,
                 description = data.description(),
@@ -62,7 +61,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
     override fun initViewModel() {
         val viewModel: MainViewModel by viewModel()
         model = viewModel
-        model.subscribe().observe(this, Observer<AppState> { renderData(it) })
+        model.subscribe().observe(this, Observer<com.chplalex.model.AppState> { renderData(it) })
     }
 
     override fun initViews(view: View) {
@@ -76,7 +75,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>(R.layout.fragment_ma
         }
     }
 
-    override fun setDataToAdapter(data: List<DataModel>) {
+    override fun setDataToAdapter(data: List<com.chplalex.model.DataModel>) {
         adapter.setData(data)
     }
 }

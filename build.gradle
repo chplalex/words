@@ -1,14 +1,53 @@
 buildscript {
+    ext {
+        kotlin_version = '1.4.31'
+    }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
+        classpath Libs.gradle
+        classpath Libs.kotlin_gradle_plugin
+        classpath Libs.navigation_safe_args
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
 
-        def nav_version = "2.3.3"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.findPlugin('android') ?: project.plugins.findPlugin('android-library')) {
+            android {
+                compileSdkVersion Config.sdk_compile
+                buildToolsVersion Config.build_tools_version
+
+                defaultConfig {
+                    applicationId Config.application_id
+                    minSdkVersion Config.sdk_min
+                    targetSdkVersion Config.sdk_target
+                    versionCode Release.version_code
+                    versionName Release.version_name
+
+                    testInstrumentationRunner Config.test_instrumentation_runner
+                }
+
+                buildTypes {
+                    release {
+                        minifyEnabled false
+                        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    }
+                }
+
+                compileOptions {
+                    sourceCompatibility Config.java_version
+                    targetCompatibility Config.java_version
+                }
+
+                kotlinOptions {
+                    jvmTarget = '1.8'
+                }
+            }
+        }
     }
 }
 

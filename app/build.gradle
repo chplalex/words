@@ -5,34 +5,6 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
-android {
-    compileSdkVersion Config.sdk_compile
-    buildToolsVersion Config.build_tools_version
-
-    defaultConfig {
-        applicationId Config.application_id
-        minSdkVersion Config.sdk_min
-        targetSdkVersion Config.sdk_target
-        versionCode Release.version_code
-        versionName Release.version_name
-
-        testInstrumentationRunner Config.test_instrumentation_runner
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}
-
 dependencies {
     //AndroidX
     implementation Libs.androidx_appcompat

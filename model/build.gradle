@@ -1,0 +1,12 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+dependencies {
+    implementation Libs.retrofit_converter_gson
+    //Test
+    testImplementation Libs.test_junit
+    androidTestImplementation Libs.test_runner
+    androidTestImplementation Libs.test_espresso_core
+}

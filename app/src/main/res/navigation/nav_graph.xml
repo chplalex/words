@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/history_dest"
-        android:name="com.chplalex.words.ui.fragment.history.HistoryFragment"
+        android:name="com.chplalex.history.HistoryFragment"
         android:label="History" />
 
 </navigation>
