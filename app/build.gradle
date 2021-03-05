@@ -6,19 +6,18 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Config.sdk_compile
+    buildToolsVersion Config.build_tools_version
 
     defaultConfig {
-        applicationId "com.chplalex.words"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        applicationId Config.application_id
+        minSdkVersion Config.sdk_min
+        targetSdkVersion Config.sdk_target
+        versionCode Release.version_code
+        versionName Release.version_name
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner Config.test_instrumentation_runner
     }
-
     buildTypes {
         release {
             minifyEnabled false

@@ -1,3 +1,30 @@
+import org.gradle.api.JavaVersion
+
+object Config {
+    const val application_id = "com.chplalex.words"
+    const val sdk_compile = 30
+    const val sdk_min = 21
+    const val sdk_target = 30
+    const val build_tools_version = "30.0.3"
+    val java_version = JavaVersion.VERSION_1_8
+    const val test_instrumentation_runner = "androidx.test.runner.AndroidJUnitRunner"
+}
+
+object Release {
+    const val version_code = 1
+    const val version_name = "1.0"
+}
+
+object Modules {
+    const val app = ":app"
+    const val core = ":core"
+    const val model = ":model"
+    const val repository = ":repository"
+    const val utils = ":utils"
+    // Features
+    const val historyScreen = ":historyScreen"
+}
+
 object Versions {
     const val coroutines = "1.4.2"
     const val retrofit = "2.9.0"
