@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation Libs.retrofit_converter_gson
+    implementation(Libs.room_ktx)
     //Test
     testImplementation Libs.test_junit
     androidTestImplementation Libs.test_runner

@@ -1,24 +1,24 @@
 package com.chplalex.words.ui.fragment.main
 
-import com.chplalex.words.contract.IInteractor
-import com.chplalex.words.contract.IRepository
-import com.chplalex.words.contract.IRepositoryLocal
-import com.chplalex.model.AppState
-import com.chplalex.model.DataModel
+import com.chplalex.base.IInteractor
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import com.chplalex.repo.contract.IRepository
+import com.chplalex.repo.contract.IRepositoryLocal
 
 class MainInteractor(
-    private val repositoryRemote: IRepository<List<com.chplalex.model.DataModel>>,
-    private val repositoryLocal: IRepositoryLocal<List<com.chplalex.model.DataModel>>
+    private val repositoryRemote: IRepository<List<DataModel>>,
+    private val repositoryLocal: IRepositoryLocal<List<DataModel>>
 ) :
-    IInteractor<com.chplalex.model.AppState> {
+    IInteractor<AppState> {
 
-    override suspend fun getData(word: String, fromRemoteSource: Boolean): com.chplalex.model.AppState {
-        val appState: com.chplalex.model.AppState
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
+        val appState: AppState
         if (fromRemoteSource) {
-            appState = com.chplalex.model.AppState.Success(repositoryRemote.getData(word))
+            appState = AppState.Success(repositoryRemote.getData(word))
             repositoryLocal.saveToDB(appState)
         } else {
-            appState = com.chplalex.model.AppState.Success(repositoryLocal.getData(word))
+            appState = AppState.Success(repositoryLocal.getData(word))
         }
         return appState
     }

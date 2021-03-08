@@ -1,10 +1,9 @@
 package com.chplalex.history
 
 import androidx.lifecycle.LiveData
-import com.chplalex.words.model.data.AppState
-import com.chplalex.base.BaseViewModel
-import com.chplalex.utils.parseSearchResults
+import com.chplalex.model.data.AppState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HistoryViewModel(private val interactor: HistoryInteractor) : com.chplalex.base.BaseViewModel<AppState>() {

@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object Config {
-    const val application_id = "com.chplalex.words"
+    //const val application_id = "com.chplalex.words"
     const val sdk_compile = 30
     const val sdk_min = 21
     const val sdk_target = 30

@@ -15,13 +15,13 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.chplalex.utils.network.isOnline
+import com.chplalex.utils.ui.AlertDialogFragment
+import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
+import com.chplalex.utils.ui.SquareImageView
 import com.chplalex.words.R
-import com.chplalex.words.isOnline
 import com.chplalex.words.makeInVisible
 import com.chplalex.words.makeVisible
-import com.chplalex.utils.AlertDialogFragment
-import com.chplalex.utils.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
-import com.chplalex.utils.SquareImageView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
@@ -32,7 +32,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
     private lateinit var descriptionHeader: TextView
     private lateinit var descriptionBody: TextView
-    private lateinit var descriptionImage: com.chplalex.utils.SquareImageView
+    private lateinit var descriptionImage: SquareImageView
     private lateinit var descriptionFooter: TextView
     private lateinit var fragmentLayout: SwipeRefreshLayout
     private lateinit var progress: LinearProgressIndicator
@@ -70,7 +70,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
         if (isOnline(requireContext())) {
             setData()
         } else {
-            com.chplalex.utils.AlertDialogFragment.newInstance(
+            AlertDialogFragment.newInstance(
                 getString(R.string.dialog_title_device_is_offline),
                 getString(R.string.dialog_message_device_is_offline)
             ).show(

@@ -4,17 +4,19 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.data.DataModel
 import com.chplalex.base.BaseFragment
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : com.chplalex.base.BaseFragment<AppState, HistoryInteractor>(R.layout.fragment_history) {
+class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragment_history) {
 
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override lateinit var model: HistoryViewModel
 
     override val titleRes = R.string.title_history
+    override val layoutWorkingRes = R.id.layout_working
 
     override fun onResume() {
         super.onResume()

@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.chplalex.words.contract.IInteractor
-import com.chplalex.words.isOnline
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import com.chplalex.utils.network.isOnline
+import com.chplalex.utils.ui.AlertDialogFragment
+import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.words.makeGone
 import com.chplalex.words.makeVisible
-import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.data.DataModel
-import com.chplalex.words.ui.fragment.alert.AlertDialogFragment
-import com.chplalex.words.ui.fragment.alert.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
@@ -23,8 +22,9 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     abstract val model: BaseViewModel<T>
 
     abstract val titleRes: Int
+    abstract val layoutWorkingRes: Int
 
-    protected var isNetworkAviable: Boolean = false
+    protected var isNetworkAvailable: Boolean = false
 
     protected lateinit var indicatorLinear: LinearProgressIndicator
     protected lateinit var indicatorCircular: CircularProgressIndicator
@@ -51,14 +51,14 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     protected open fun initViews(view: View) {
         indicatorLinear = view.findViewById(R.id.indicator_linear)
         indicatorCircular = view.findViewById(R.id.indicator_circular)
-        layoutWorking = view.findViewById(R.id.layout_working)
+        layoutWorking = view.findViewById(layoutWorkingRes)
         layoutLoading = view.findViewById(R.id.layout_loading)
     }
 
     override fun onResume() {
         super.onResume()
-        isNetworkAviable = isOnline(requireContext())
-        if (!isNetworkAviable && isAlertDialogNull()) {
+        isNetworkAvailable = isOnline(requireContext())
+        if (!isNetworkAvailable && isAlertDialogNull()) {
             showNoInternetConnectionDialog()
         }
     }
@@ -98,7 +98,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
                 } else {
                     indicatorCircular.makeGone()
                     indicatorLinear.makeVisible()
-                    indicatorLinear.progress = appState.progress
+                    indicatorLinear.progress = appState.progress!!
                 }
             }
             is AppState.Error -> {

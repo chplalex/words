@@ -1,20 +1,19 @@
 package com.chplalex.words.ui.fragment.main
 
 import androidx.lifecycle.LiveData
-import com.chplalex.model.AppState
-import com.chplalex.base.BaseViewModel
-import com.chplalex.utils.parseSearchResults
+import com.chplalex.model.data.AppState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val interactor: MainInteractor) : com.chplalex.base.BaseViewModel<com.chplalex.model.AppState>() {
+class MainViewModel(private val interactor: MainInteractor) : com.chplalex.base.BaseViewModel<AppState>() {
 
-    private val liveDataForViewToObserve: LiveData<com.chplalex.model.AppState> = _mutableLiveData
+    private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
     fun subscribe() = liveDataForViewToObserve
 
     override fun getData(word: String, isOnline: Boolean) {
-        _mutableLiveData.value = com.chplalex.model.AppState.Loading(null)
+        _mutableLiveData.value = AppState.Loading(null)
         cancelJob()
         viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
@@ -24,11 +23,11 @@ class MainViewModel(private val interactor: MainInteractor) : com.chplalex.base.
     }
 
     override fun handleError(error: Throwable) {
-        _mutableLiveData.postValue(com.chplalex.model.AppState.Error(error))
+        _mutableLiveData.postValue(AppState.Error(error))
     }
 
     override fun onCleared() {
-        _mutableLiveData.value = com.chplalex.model.AppState.Success(null)
+        _mutableLiveData.value = AppState.Success(null)
         super.onCleared()
     }
 }

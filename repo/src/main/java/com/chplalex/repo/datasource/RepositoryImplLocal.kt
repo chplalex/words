@@ -1,16 +1,16 @@
 package com.chplalex.repo.datasource
 
-import com.chplalex.words.contract.IDataSourceLocal
-import com.chplalex.words.contract.IRepositoryLocal
-import com.chplalex.model.AppState
-import com.chplalex.model.DataModel
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import com.chplalex.repo.contract.IDataSourceLocal
+import com.chplalex.repo.contract.IRepositoryLocal
 
 class RepositoryImplLocal(
-    private val dataSource: IDataSourceLocal<List<com.chplalex.model.DataModel>>
+    private val dataSource: IDataSourceLocal<List<DataModel>>
 ) :
-    IRepositoryLocal<List<com.chplalex.model.DataModel>> {
+    IRepositoryLocal<List<DataModel>> {
 
-    override suspend fun getData(word: String): List<com.chplalex.model.DataModel> = dataSource.getData(word)
+    override suspend fun getData(word: String): List<DataModel> = dataSource.getData(word)
 
-    override suspend fun saveToDB(appState: com.chplalex.model.AppState) { dataSource.saveToDB(appState) }
+    override suspend fun saveToDB(appState: AppState) { dataSource.saveToDB(appState) }
 }

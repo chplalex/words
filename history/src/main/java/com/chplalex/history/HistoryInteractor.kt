@@ -1,10 +1,10 @@
 package com.chplalex.history
 
-import com.chplalex.words.contract.IInteractor
-import com.chplalex.words.contract.IRepository
-import com.chplalex.words.contract.IRepositoryLocal
-import com.chplalex.words.model.data.AppState
-import com.chplalex.words.model.data.DataModel
+import com.chplalex.base.IInteractor
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import com.chplalex.repo.contract.IRepository
+import com.chplalex.repo.contract.IRepositoryLocal
 
 class HistoryInteractor(
     private val repositoryRemote: IRepository<List<DataModel>>,

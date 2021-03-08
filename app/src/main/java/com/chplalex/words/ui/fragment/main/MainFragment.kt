@@ -5,20 +5,20 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chplalex.model.data.AppState
+import com.chplalex.model.data.DataModel
+import com.chplalex.model.data.description
+import com.chplalex.model.data.imageUrl
+import com.chplalex.utils.network.isOnline
 import com.chplalex.words.R
-import com.chplalex.words.isOnline
-import com.chplalex.model.AppState
-import com.chplalex.model.DataModel
-import com.chplalex.model.description
-import com.chplalex.model.imageUrl
-import com.chplalex.base.BaseFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment
 import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState, MainInteractor>(R.layout.fragment_main) {
+class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.layout.fragment_main) {
 
     private val navController by inject<NavController> { parametersOf(requireActivity()) }
 
@@ -27,10 +27,11 @@ class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState,
     override lateinit var model: MainViewModel
 
     override val titleRes = R.string.title_main
+    override val layoutWorkingRes = R.id.layout_working
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
-        override fun onItemClick(data: com.chplalex.model.DataModel) {
+        override fun onItemClick(data: DataModel) {
             val action = MainFragmentDirections.actionMainToDescription(
                 word = data.word,
                 description = data.description(),
@@ -43,9 +44,9 @@ class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState,
     private val onSearchClickListener = object : SearchFragment.OnSearchClickListener {
 
         override fun onClick(searchWord: String) {
-            isNetworkAviable = isOnline(requireContext())
-            model.getData(searchWord, isNetworkAviable)
-            if (!isNetworkAviable) {
+            isNetworkAvailable = isOnline(requireContext())
+            model.getData(searchWord, isNetworkAvailable)
+            if (!isNetworkAvailable) {
                 showNoInternetConnectionDialog()
             }
         }
@@ -61,7 +62,7 @@ class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState,
     override fun initViewModel() {
         val viewModel: MainViewModel by viewModel()
         model = viewModel
-        model.subscribe().observe(this, Observer<com.chplalex.model.AppState> { renderData(it) })
+        model.subscribe().observe(this, Observer<AppState> { renderData(it) })
     }
 
     override fun initViews(view: View) {
@@ -75,7 +76,7 @@ class MainFragment : com.chplalex.base.BaseFragment<com.chplalex.model.AppState,
         }
     }
 
-    override fun setDataToAdapter(data: List<com.chplalex.model.DataModel>) {
+    override fun setDataToAdapter(data: List<DataModel>) {
         adapter.setData(data)
     }
 }

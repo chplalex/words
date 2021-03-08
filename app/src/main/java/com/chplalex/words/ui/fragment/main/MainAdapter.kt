@@ -5,16 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chplalex.model.data.DataModel
 import com.chplalex.words.R
-import com.chplalex.model.DataModel
-import com.chplalex.utils.convertMeaningsToString
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,
 ) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    private var dataList: List<com.chplalex.model.DataModel> = arrayListOf()
+    private var dataList: List<DataModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater
@@ -28,7 +27,7 @@ class MainAdapter(
 
     override fun getItemCount() = dataList.size
 
-    fun setData(dataList: List<com.chplalex.model.DataModel>) {
+    fun setData(dataList: List<DataModel>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }
@@ -38,7 +37,7 @@ class MainAdapter(
         private val header = view.findViewById<TextView>(R.id.item_main_header)
         private val description = view.findViewById<TextView>(R.id.item_main_description)
 
-        fun bind(data: com.chplalex.model.DataModel) {
+        fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 header.text = data.word
                 description.text = com.chplalex.utils.convertMeaningsToString(data.meanings!!)
@@ -49,6 +48,6 @@ class MainAdapter(
     }
 
     interface OnListItemClickListener {
-        fun onItemClick(data: com.chplalex.model.DataModel)
+        fun onItemClick(data: DataModel)
     }
 }
