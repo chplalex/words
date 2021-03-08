@@ -1,7 +1,8 @@
-include ':history'
-include ':model'
-include ':utils'
-include ':repo'
-include ':base'
 include ':app'
+include ':base'
+include ':history'
+include ':main'
+include ':model'
+include ':repo'
+include ':utils'
 rootProject.name = "words"

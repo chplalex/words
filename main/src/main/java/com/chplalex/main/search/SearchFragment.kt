@@ -1,4 +1,4 @@
-package com.chplalex.words.ui.fragment.search
+package com.chplalex.main.search
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.chplalex.main.R
 import com.chplalex.words.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText

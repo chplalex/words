@@ -2,52 +2,24 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
+}
+
+configurations {
+    cleanedAnnotations
+    compile.exclude group: 'org.jetbrains' , module:'annotations'
 }
 
 dependencies {
-    implementation project(Modules.model)
     implementation project(Modules.base)
     implementation project(Modules.history)
+    implementation project(Modules.main)
+    implementation project(Modules.model)
     implementation project(Modules.repo)
-    implementation project(Modules.utils)
 
-//    //AndroidX
-//    implementation Libs.androidx_appcompat
-    implementation Libs.androidx_swiperefreshlayout
-//    //Design
-    implementation(Libs.design_material)
-//    //Kotlin
-//    implementation Libs.kotlin_core
-//    //Coroutines
-//    implementation Libs.coroutines_android
-//    //Retrofit 2
-    implementation Libs.retrofit_retrofit
-//    implementation Libs.retrofit_converter_gson
-//    implementation Libs.retrofit_logging_interceptor
-//    //LifeCycle
-//    implementation Libs.lifecycle_viewmodel
-//    implementation Libs.lifecycle_extensions
-//    // Navigation
-    implementation Libs.navigation_fragment
-    implementation Libs.navigation_ui
-//    //Koin
-    implementation Libs.koin_fragment
-//    implementation Libs.koin_scope
-    implementation Libs.koin_viewmodel
-//    // Picasso
-    implementation Libs.picasso
-//    // Glide
-    implementation Libs.glide_glide
-    kapt Libs.glide_compiler
-//    // Room
-    implementation Libs.room_ktx
-//    implementation Libs.room_runtime
-//    kapt Libs.room_compiler
-//    //Test
-//    testImplementation Libs.test_junit
-//    androidTestImplementation Libs.test_runner
-//    androidTestImplementation Libs.test_espresso_core
-//
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation(Libs.koin_fragment)
+    implementation(Libs.koin_scope)
+    implementation(Libs.koin_viewmodel)
+
+    implementation(Libs.navigation_fragment)
+    implementation(Libs.navigation_ui)
 }

@@ -6,6 +6,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.room.Room
 import com.chplalex.history.HistoryInteractor
 import com.chplalex.history.HistoryViewModel
+import com.chplalex.main.main.MainInteractor
+import com.chplalex.main.main.MainViewModel
 import com.chplalex.model.data.DataModel
 import com.chplalex.repo.api.ApiService
 import com.chplalex.repo.api.BaseInterceptor
@@ -20,14 +22,12 @@ import com.chplalex.repo.datasource.RepositoryImplLocal
 import com.chplalex.repo.repository.RetrofitImpl
 import com.chplalex.repo.repository.RoomImpl
 import com.chplalex.words.R
-import com.chplalex.words.ui.fragment.main.MainInteractor
-import com.chplalex.words.ui.fragment.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val application = module {
     // (Remote repository == Retrofit) DI
-    single<ApiService> { createRetrofit(BaseInterceptor.interceptor).create(ApiService::class.java) as ApiService}
+    single<ApiService> { createRetrofit(BaseInterceptor.interceptor).create(ApiService::class.java) }
     single<IRepository<List<DataModel>>> { RepositoryImpl(RetrofitImpl(get<ApiService>())) }
 
     // (Local repository = Room) DI

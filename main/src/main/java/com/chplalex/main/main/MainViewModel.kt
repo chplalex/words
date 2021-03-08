@@ -1,12 +1,14 @@
-package com.chplalex.words.ui.fragment.main
+package com.chplalex.main.main
 
 import androidx.lifecycle.LiveData
+import com.chplalex.base.BaseViewModel
 import com.chplalex.model.data.AppState
+import com.chplalex.utils.parseSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val interactor: MainInteractor) : com.chplalex.base.BaseViewModel<AppState>() {
+class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = _mutableLiveData
 
@@ -19,7 +21,7 @@ class MainViewModel(private val interactor: MainInteractor) : com.chplalex.base.
     }
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) = withContext(Dispatchers.IO) {
-        _mutableLiveData.postValue(com.chplalex.utils.parseSearchResults(interactor.getData(word, isOnline), isOnline))
+        _mutableLiveData.postValue(parseSearchResults(interactor.getData(word, isOnline), isOnline))
     }
 
     override fun handleError(error: Throwable) {

@@ -1,4 +1,4 @@
-package com.chplalex.words.ui
+package com.chplalex.words
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

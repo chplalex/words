@@ -1,12 +1,12 @@
-package com.chplalex.words.ui.fragment.main
+package com.chplalex.main.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chplalex.main.R
 import com.chplalex.model.data.DataModel
-import com.chplalex.words.R
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,

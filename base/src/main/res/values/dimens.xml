@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_size">50dp</dimen>
-    <dimen name="fab_margin">20dp</dimen>
-
     <dimen name="text_size_standard">17sp</dimen>
     <dimen name="text_size_standard_header">20sp</dimen>
+
     <dimen name="margin_medium">15dp</dimen>
-    <dimen name="margine_xx_small">5dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_x_small">5dp</dimen>
+    <dimen name="margin_xx_small">5dp</dimen>
+
     <dimen name="height_progress_line">2dp</dimen>
     <dimen name="hair_line_size">1dp</dimen>
-    <dimen name="margin_small">5dp</dimen>
 </resources>

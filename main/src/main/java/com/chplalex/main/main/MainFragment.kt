@@ -1,18 +1,22 @@
-package com.chplalex.words.ui.fragment.main
+package com.chplalex.main.main
 
+import android.os.Bundle
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chplalex.main.R
+import com.chplalex.main.search.SearchFragment
+import com.chplalex.main.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
 import com.chplalex.model.data.AppState
 import com.chplalex.model.data.DataModel
 import com.chplalex.model.data.description
 import com.chplalex.model.data.imageUrl
 import com.chplalex.utils.network.isOnline
-import com.chplalex.words.R
-import com.chplalex.words.ui.fragment.search.SearchFragment
-import com.chplalex.words.ui.fragment.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,18 +30,20 @@ class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.
 
     override lateinit var model: MainViewModel
 
+    @StringRes
     override val titleRes = R.string.title_main
+    @IdRes
     override val layoutWorkingRes = R.id.layout_working
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
         override fun onItemClick(data: DataModel) {
-            val action = MainFragmentDirections.actionMainToDescription(
-                word = data.word,
-                description = data.description(),
-                imageUrl = data.imageUrl()
-            )
-            navController.navigate(action)
+            val args = Bundle().apply {
+                putString("word", data.word)
+                putString("description", data.description())
+                putString("image_url", data.imageUrl())
+            }
+            navController.navigate(R.id.layout_fragment_description, args)
         }
     }
 

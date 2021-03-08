@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/history" />
+            <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/repo" />
             <option value="$PROJECT_DIR$/utils" />

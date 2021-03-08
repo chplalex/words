@@ -1,4 +1,4 @@
-package com.chplalex.words.ui.fragment.description
+package com.chplalex.main.description
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -15,11 +14,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.chplalex.main.R
 import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.utils.ui.SquareImageView
-import com.chplalex.words.R
 import com.chplalex.words.makeInVisible
 import com.chplalex.words.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -88,24 +87,22 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     }
 
     private fun setData() {
-        val args: DescriptionFragmentArgs by navArgs()
-        with(args) {
-            descriptionHeader.text = word
-            descriptionBody.text = description
-            descriptionFooter.text = "(image loaded by %s)".format(imageLoader.loaderName)
-                if (imageUrl.isNullOrBlank()) {
-                stopRefreshAnimationIfNeeded()
-            } else {
-                showProgress()
-                when (imageLoader) {
-                    ImageLoader.Picasso -> {
-                        loadImageWithPicasso(descriptionImage, imageUrl)
-                        imageLoader = ImageLoader.Glide
-                    }
-                    ImageLoader.Glide -> {
-                        loadImageWithGlide(descriptionImage, imageUrl)
-                        imageLoader = ImageLoader.Picasso
-                    }
+        descriptionHeader.text = arguments?.getString("word") ?: "no arguments"
+        descriptionBody.text = arguments?.getString("description") ?: "no arguments"
+        descriptionFooter.text = "(image loaded by %s)".format(imageLoader.loaderName)
+        val imageUrl: String? = arguments?.getString("image_url")
+        if (imageUrl.isNullOrBlank()) {
+            stopRefreshAnimationIfNeeded()
+        } else {
+            showProgress()
+            when (imageLoader) {
+                ImageLoader.Picasso -> {
+                    loadImageWithPicasso(descriptionImage, imageUrl)
+                    imageLoader = ImageLoader.Glide
+                }
+                ImageLoader.Glide -> {
+                    loadImageWithGlide(descriptionImage, imageUrl)
+                    imageLoader = ImageLoader.Picasso
                 }
             }
         }

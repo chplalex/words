@@ -1,4 +1,4 @@
-package com.chplalex.words.ui.fragment.main
+package com.chplalex.main.main
 
 import com.chplalex.base.IInteractor
 import com.chplalex.model.data.AppState
