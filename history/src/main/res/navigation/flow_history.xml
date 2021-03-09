@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flow_history"
+    app:startDestination="@id/destination_history">
+
+    <fragment
+        android:id="@+id/destination_history"
+        android:name="com.chplalex.history.HistoryFragment"
+        android:label="@string/title_history" />
+
+</navigation>
