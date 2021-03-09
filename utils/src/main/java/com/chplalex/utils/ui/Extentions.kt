@@ -1,4 +1,4 @@
-package com.chplalex.words
+package com.chplalex.utils.ui
 
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
