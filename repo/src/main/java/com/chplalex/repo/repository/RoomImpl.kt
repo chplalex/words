@@ -9,8 +9,7 @@ import com.chplalex.utils.mapHistorySuccessToEntity
 
 class RoomImpl(private val dao: HistoryDao) : IDataSourceLocal<List<DataModel>> {
 
-    override suspend fun getData(word: String): List<DataModel> =
-        mapHistoryListEntityToModel(dao.all())
+    override suspend fun getData(word: String): List<DataModel> = mapHistoryListEntityToModel(dao.all())
 
     override suspend fun saveToDB(appState: AppState) { dao.insert(mapHistorySuccessToEntity(appState)) }
 }

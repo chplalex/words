@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation Libs.retrofit_converter_gson
-    implementation(Libs.room_ktx)
+    api(Libs.retrofit_converter_gson)
+    api(Libs.room_ktx)
 }

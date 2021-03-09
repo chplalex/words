@@ -7,6 +7,8 @@ import com.chplalex.model.data.HistoryEntity
 interface HistoryDao {
     @Query("SELECT * FROM HistoryEntity")
     suspend fun all(): List<HistoryEntity>
+    @Query("SELECT * FROM HistoryEntity")
+    fun getAll(): List<HistoryEntity>
     @Query("SELECT * FROM HistoryEntity WHERE word LIKE :word")
     suspend fun getDataByWord(word: String): HistoryEntity
     @Insert(onConflict = OnConflictStrategy.IGNORE)

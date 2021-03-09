@@ -12,8 +12,8 @@ import com.chplalex.model.data.DataModel
 import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
-import com.chplalex.words.makeGone
-import com.chplalex.words.makeVisible
+import com.chplalex.utils.ui.makeGone
+import com.chplalex.utils.ui.makeVisible
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 

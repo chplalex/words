@@ -12,7 +12,7 @@ dependencies {
     api(Libs.retrofit_logging_interceptor)
     api(Libs.retrofit_retrofit)
 
-    api(Libs.room_compiler)
     api(Libs.room_ktx)
     api(Libs.room_runtime)
+    kapt(Libs.room_compiler)
 }

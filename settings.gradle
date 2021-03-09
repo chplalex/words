@@ -3,6 +3,7 @@ include ':base'
 include ':history'
 include ':main'
 include ':model'
+include ':navigation'
 include ':repo'
 include ':utils'
 rootProject.name = "words"

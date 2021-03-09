@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flow_main"
+    app:startDestination="@id/destination_main">
+
+    <fragment
+        android:id="@+id/destination_main"
+        android:name="com.chplalex.main.main.MainFragment">
+        <action
+            android:id="@+id/action_main_to_description"
+            app:destination="@id/destination_description">
+            <argument
+                android:name="word"
+                app:nullable="false"
+                app:argType="string"/>
+            <argument
+                android:name="description"
+                app:nullable="false"
+                app:argType="string"/>
+            <argument
+                android:name="image_url"
+                app:nullable="true"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_description"
+        android:name="com.chplalex.main.description.DescriptionFragment"/>
+
+</navigation>

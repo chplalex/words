@@ -10,7 +10,6 @@ buildscript {
         classpath Libs.gradle
         classpath Libs.kotlin_gradle_plugin
         classpath Libs.navigation_safe_args
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -22,7 +21,6 @@ subprojects {
                 buildToolsVersion Config.build_tools_version
 
                 defaultConfig {
-//                    applicationId Config.application_id
                     minSdkVersion Config.sdk_min
                     targetSdkVersion Config.sdk_target
                     versionCode Release.version_code

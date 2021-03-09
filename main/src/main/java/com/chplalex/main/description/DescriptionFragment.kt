@@ -19,8 +19,8 @@ import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.utils.ui.SquareImageView
-import com.chplalex.words.makeInVisible
-import com.chplalex.words.makeVisible
+import com.chplalex.utils.ui.makeInVisible
+import com.chplalex.utils.ui.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
@@ -60,7 +60,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
         descriptionBody = view.findViewById(R.id.description_body)
         descriptionImage = view.findViewById(R.id.description_image)
         descriptionFooter = view.findViewById(R.id.description_footer)
-        fragmentLayout = view.findViewById(R.id.layout_fragment_description)
+        fragmentLayout = view.findViewById(R.id.fragment_description)
         fragmentLayout.setOnRefreshListener { startLoadingOrShowError() }
         progress = view.findViewById(R.id.description_progress)
     }

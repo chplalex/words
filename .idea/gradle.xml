@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/history" />
             <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/model" />
+            <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/repo" />
             <option value="$PROJECT_DIR$/utils" />
           </set>

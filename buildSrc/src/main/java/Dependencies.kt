@@ -21,6 +21,7 @@ object Modules {
     const val history = ":history"
     const val main = ":main"
     const val model = ":model"
+    const val navigation = ":navigation"
     const val repo = ":repo"
     const val utils = ":utils"
 }

@@ -7,6 +7,6 @@ plugins {
 dependencies {
     implementation project(Modules.model)
 
-    implementation(Libs.androidx_appcompat)
-    implementation(Libs.design_material)
+    api(Libs.androidx_appcompat)
+    api(Libs.design_material)
 }

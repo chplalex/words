@@ -1,9 +1,7 @@
 package com.chplalex.main.main
 
-import android.os.Bundle
 import android.view.View
 import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -32,18 +30,20 @@ class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.
 
     @StringRes
     override val titleRes = R.string.title_main
+
     @IdRes
     override val layoutWorkingRes = R.id.layout_working
 
     private val onListItemClickListener = object : MainAdapter.OnListItemClickListener {
 
         override fun onItemClick(data: DataModel) {
-            val args = Bundle().apply {
-                putString("word", data.word)
-                putString("description", data.description())
-                putString("image_url", data.imageUrl())
-            }
-            navController.navigate(R.id.layout_fragment_description, args)
+            navController.navigate(
+                MainFragmentDirections.actionMainToDescription(
+                    data.word,
+                    data.description(),
+                    data.imageUrl()
+                )
+            )
         }
     }
 

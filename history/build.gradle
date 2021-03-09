@@ -2,14 +2,21 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 dependencies {
     implementation project(Modules.base)
     implementation project(Modules.model)
+    implementation project(Modules.navigation)
     implementation project(Modules.repo)
 
-    implementation(Libs.coroutines_android)
     implementation(Libs.design_material)
+
+    implementation(Libs.koin_fragment)
+    implementation(Libs.koin_scope)
     implementation(Libs.koin_viewmodel)
+
+    implementation(Libs.navigation_fragment)
+    implementation(Libs.navigation_ui)
 }
