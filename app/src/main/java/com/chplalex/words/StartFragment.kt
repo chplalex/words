@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavController
+import com.chplalex.navigation.NavGraphDirections
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -21,7 +21,6 @@ class StartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        navController.navigate(ActionOnlyNavDirections(R.id.action_global_flow_main))
+        navController.navigate(NavGraphDirections.actionGlobalFlowMain())
     }
 }

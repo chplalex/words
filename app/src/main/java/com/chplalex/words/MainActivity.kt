@@ -41,6 +41,5 @@ open class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNav.setupWithNavController(navController)
-
     }
 }
