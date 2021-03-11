@@ -47,10 +47,10 @@ val navigation = module {
 
 val mainFragment = module {
     factory { MainInteractor(get(), get()) }
-    factory { MainViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 }
 
 val historyFragment = module {
-    factory { HistoryViewModel(get()) }
     factory { HistoryInteractor(get(), get()) }
+    viewModel { HistoryViewModel(get()) }
 }
