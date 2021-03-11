@@ -9,4 +9,6 @@
 
     <string name="title_history_screen_feature">History screen feature</string>
     <string name="title_dynamic">Dynamic feature</string>
+    <string name="pos_button">Yes, now!</string>
+    <string name="neg_button">No, later</string>
 </resources>

@@ -4,13 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType.FLEXIBLE
+import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -19,15 +26,27 @@ import org.koin.core.parameter.parametersOf
 
 private const val DYNAMIC_FEATURE_ACTIVITY_PATH = "com.chplalex.dynamic.DynamicActivity"
 private const val DYNAMIC_FEATURE_NAME = "Dynamic feature"
+private const val REQUEST_CODE = 8001
 
 open class TranslatorActivity : AppCompatActivity() {
 
+    private lateinit var appUpdateManager: AppUpdateManager
+    private lateinit var splitInstallManager: SplitInstallManager
+
     private val navController by inject<NavController> { parametersOf(this) }
 
-    private lateinit var splitInstallManager: SplitInstallManager
+    private val stateUpdatedListener = InstallStateUpdatedListener { state ->
+        state?.let {
+            if (it.installStatus() == InstallStatus.DOWNLOADED) {
+                showCompleteUpdate()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkForUpdates()
 
         setContentView(R.layout.activity_main)
 
@@ -52,6 +71,31 @@ open class TranslatorActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                appUpdateManager.unregisterListener(stateUpdatedListener)
+            } else {
+                showError("App update failed!", Throwable("Result code is $resultCode"))
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                    showCompleteUpdate()
+                }
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, this, REQUEST_CODE)
+                }
+            }
+    }
+
     private fun onDynamicFeature() {
         splitInstallManager = SplitInstallManagerFactory.create(this)
 
@@ -66,10 +110,34 @@ open class TranslatorActivity : AppCompatActivity() {
             .addOnFailureListener { showError("Couldn't download feature: ", it) }
     }
 
+    private fun checkForUpdates() {
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfo = appUpdateManager.appUpdateInfo
+        appUpdateInfo.addOnSuccessListener { appUpdateIntent ->
+            if (
+                appUpdateIntent.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateIntent.isUpdateTypeAllowed(IMMEDIATE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateIntent, IMMEDIATE, this, REQUEST_CODE)
+                return@addOnSuccessListener
+            }
+        }
+    }
+
     private fun showError(title: String, error: Throwable) {
         MaterialAlertDialogBuilder(this)
             .setTitle(title)
             .setMessage(error.message)
+            .create()
+            .show()
+    }
+
+    private fun showCompleteUpdate() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("An update has just been downloaded")
+            .setMessage("Would you like to reload applications to install the update?")
+            .setPositiveButton(R.string.pos_button) { _, _ -> appUpdateManager.completeUpdate() }
+            .setNegativeButton(R.string.neg_button, null)
             .create()
             .show()
     }
