@@ -5,6 +5,10 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+android {
+    dynamicFeatures = [Modules.dynamic]
+}
+
 configurations {
     cleanedAnnotations
     compile.exclude group: 'org.jetbrains' , module:'annotations'
@@ -17,6 +21,8 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.navigation)
     implementation project(Modules.repo)
+
+    implementation(Libs.google_play_core)
 
     implementation(Libs.koin_fragment)
     implementation(Libs.koin_scope)

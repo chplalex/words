@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_description_linear_progress_indicator">Linear Progress Indicator</string>
+    <string name="content_description_image_view">Image View</string>
+    <string name="ok_button">Ok</string>
+</resources>

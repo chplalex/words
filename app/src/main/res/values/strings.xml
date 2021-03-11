@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Translator</string>
     <string name="button_search">Search</string>
-    <string name="search_hint">type word for search</string>
+    <string name="search_hint">Type word for search</string>
     <string name="content_description_clear">Clear input string</string>
-    <string name="textview_error">Error</string>
+    <string name="text_view_error">Error</string>
     <string name="button_reload">Reload</string>
-    <string name="undefined_error">Underfined error</string>
+    <string name="undefined_error">Undefined error</string>
+
+    <string name="title_history_screen_feature">History screen feature</string>
+    <string name="title_dynamic">Dynamic feature</string>
 </resources>

@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/destination_start"
-        android:name="com.chplalex.words.StartFragment" />
+        android:name="com.chplalex.words.TranslatorFragment" />
 
 </navigation>

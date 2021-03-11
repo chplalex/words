@@ -10,7 +10,7 @@ import com.chplalex.navigation.NavGraphDirections
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class StartFragment : Fragment() {
+class TranslatorFragment : Fragment() {
 
     private val navController by inject<NavController> { parametersOf(requireActivity()) }
 

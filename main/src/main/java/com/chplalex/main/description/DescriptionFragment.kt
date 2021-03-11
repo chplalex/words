@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.chplalex.main.R
+import com.chplalex.utils.data.ImageLoader
 import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
@@ -168,11 +169,6 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
     private fun hideProgress() {
         progress.makeInVisible()
-    }
-
-    private enum class ImageLoader(val loaderName: String) {
-        Picasso("Picasso"),
-        Glide("Glide")
     }
 }
 

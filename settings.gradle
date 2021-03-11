@@ -1,3 +1,4 @@
+include ':dynamic'
 include ':app'
 include ':base'
 include ':history'

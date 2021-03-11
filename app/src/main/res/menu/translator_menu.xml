@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_dynamic_feature"
+        android:icon="@drawable/ic_dynamic_feature"
+        android:title="@string/title_dynamic_feature"
+        app:showAsAction="ifRoom"
+        app:iconTint = "?attr/colorSurface"/>
+</menu>

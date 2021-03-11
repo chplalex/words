@@ -7,6 +7,7 @@ object Config {
     const val sdk_target = 30
     const val build_tools_version = "30.0.3"
     val java_version = JavaVersion.VERSION_1_8
+    const val jvm_target = "1.8"
     const val test_instrumentation_runner = "androidx.test.runner.AndroidJUnitRunner"
 }
 
@@ -18,6 +19,7 @@ object Release {
 object Modules {
     const val app = ":app"
     const val base = ":base"
+    const val dynamic = ":dynamic"
     const val history = ":history"
     const val main = ":main"
     const val model = ":model"
@@ -44,6 +46,8 @@ object Libs {
     const val androidx_swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     //Design
     const val design_material = "com.google.android.material:material:1.3.0"
+    //Google Play
+    const val google_play_core = "com.google.android.play:core:1.6.3"
     //Kotlin
     const val kotlin_core = "androidx.core:core-ktx:1.3.2"
     const val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
@@ -75,6 +79,8 @@ object Libs {
     const val room_compiler = "androidx.room:room-compiler:${Versions.room}"
     //Test
     const val test_junit = "junit:junit:4.13.2"
-    const val test_runner = "androidx.test:runner:1.3.0"
-    const val test_espresso_core = "androidx.test.espresso:espresso-core:3.3.0"
+    const val androidx_test_ext = "androidx.test.ext:junit:1.1.2"
+    const val androidx_test_runner = "androidx.test:runner:1.3.0"
+    const val androidx_test_espresso_core = "androidx.test.espresso:espresso-core:3.3.0"
+    const val androidx_test_annotation = "androidx.annotation:annotation:1.1.0"
 }
