@@ -2,6 +2,7 @@ package com.chplalex.dynamic
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,11 @@ class DynamicActivity : AppCompatActivity() {
     private val coroutineScope = CoroutineScope(
         Dispatchers.Main
                 + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable -> showError("Coroutines job error", throwable) })
+                + CoroutineExceptionHandler { _, error -> showError("NASA API request error", error) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.dynamic_activity)
         initViews()
         loadData()
     }
@@ -59,13 +61,7 @@ class DynamicActivity : AppCompatActivity() {
         cancelJob()
         coroutineScope.launch {
             val data = nasaApi().getApod()
-            runOnUiThread {
-                if (data.code == 200) {
-                    loadImage(data)
-                } else {
-                    showError("API loading error", Throwable("Response code = ${data.code}"))
-                }
-            }
+            runOnUiThread { loadImage(data) }
         }
     }
 
@@ -84,7 +80,7 @@ class DynamicActivity : AppCompatActivity() {
         progressIndicator.makeVisible()
         Glide.with(this)
             .load(data.url)
-            .centerCrop()
+            .fitCenter()
             .error(R.drawable.ic_load_error)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(

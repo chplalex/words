@@ -18,6 +18,7 @@ import com.google.android.play.core.install.model.AppUpdateType.FLEXIBLE
 import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -25,7 +26,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 private const val DYNAMIC_FEATURE_ACTIVITY_PATH = "com.chplalex.dynamic.DynamicActivity"
-private const val DYNAMIC_FEATURE_NAME = "Dynamic feature"
+private const val DYNAMIC_FEATURE_NAME = "dynamic"
 private const val REQUEST_CODE = 8001
 
 open class TranslatorActivity : AppCompatActivity() {
@@ -97,7 +98,7 @@ open class TranslatorActivity : AppCompatActivity() {
     }
 
     private fun onDynamicFeature() {
-        splitInstallManager = SplitInstallManagerFactory.create(this)
+        splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
 
         val request = SplitInstallRequest
             .newBuilder()
@@ -107,7 +108,7 @@ open class TranslatorActivity : AppCompatActivity() {
         splitInstallManager
             .startInstall(request)
             .addOnSuccessListener { startActivity(Intent().setClassName(packageName, DYNAMIC_FEATURE_ACTIVITY_PATH)) }
-            .addOnFailureListener { showError("Couldn't download feature: ", it) }
+            .addOnFailureListener { showError("Couldn't install feature: ", it) }
     }
 
     private fun checkForUpdates() {

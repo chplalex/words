@@ -1,6 +1,6 @@
-include ':dynamic'
 include ':app'
 include ':base'
+include ':dynamic'
 include ':history'
 include ':main'
 include ':model'
