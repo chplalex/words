@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flow_app"
+    app:startDestination="@id/destination_start">
+
+    <fragment
+        android:id="@+id/destination_start"
+        android:name="com.chplalex.words.TranslatorFragment" />
+
+</navigation>
