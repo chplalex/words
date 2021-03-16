@@ -9,8 +9,6 @@ android {
     buildToolsVersion Config.build_tools_version
 
     defaultConfig {
-        applicationId "com.chplalex.dynamic"
-
         minSdkVersion Config.sdk_min
         targetSdkVersion Config.sdk_target
 
@@ -60,8 +58,8 @@ dependencies {
     implementation(Libs.retrofit_logging_interceptor)
     implementation(Libs.retrofit_retrofit)
 
-    testImplementation(Libs.test_junit)
-    androidTestImplementation(Libs.androidx_test_ext)
-    androidTestImplementation(Libs.androidx_test_espresso_core)
     androidTestImplementation(Libs.androidx_test_annotation)
+    androidTestImplementation(Libs.androidx_test_espresso_core)
+    androidTestImplementation(Libs.androidx_test_ext)
+    testImplementation(Libs.test_junit)
 }
