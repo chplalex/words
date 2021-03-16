@@ -21,6 +21,7 @@ dependencies {
     implementation project(Modules.model)
     implementation project(Modules.navigation)
     implementation project(Modules.repo)
+    implementation project(Modules.utils)
 
     implementation(Libs.google_play_core)
 

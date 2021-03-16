@@ -17,6 +17,8 @@ import com.chplalex.utils.ui.makeGone
 import com.chplalex.utils.ui.makeVisible
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private val resId: Int) : Fragment() {
 
@@ -24,6 +26,8 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
 
     abstract val titleRes: Int
     abstract val layoutWorkingRes: Int
+
+    private var onlineLiveData by inject<OnlineLiveData> { parametersOf(requireContext()) }
 
     protected var isNetworkAvailable: Boolean = false
 

@@ -9,4 +9,8 @@ dependencies {
     implementation project(Modules.utils)
 
     implementation(Libs.coroutines_android)
+
+    implementation(Libs.koin_fragment)
+    implementation(Libs.koin_scope)
+    implementation(Libs.koin_viewmodel)
 }

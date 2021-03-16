@@ -1,5 +1,6 @@
 package com.chplalex.words.di.module
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,6 +22,7 @@ import com.chplalex.repo.datasource.RepositoryImpl
 import com.chplalex.repo.datasource.RepositoryImplLocal
 import com.chplalex.repo.repository.RetrofitImpl
 import com.chplalex.repo.repository.RoomImpl
+import com.chplalex.utils.network.OnlineLiveData
 import com.chplalex.words.R
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -34,6 +36,9 @@ val application = module {
     single<HistoryDatabase> { Room.databaseBuilder(get(), HistoryDatabase::class.java, HISTORY_DB_NAME).build() }
     single<HistoryDao> { get<HistoryDatabase>().historyDao() }
     single<IRepositoryLocal<List<DataModel>>> { RepositoryImplLocal(RoomImpl(get<HistoryDao>())) }
+
+    // OnlineLiveData
+    single<OnlineLiveData> { (context: Context) -> OnlineLiveData(context) }
 }
 
 val navigation = module {
