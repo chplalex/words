@@ -3,10 +3,13 @@ package com.chplalex.base
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.chplalex.model.data.AppState
 import com.chplalex.model.data.DataModel
+import com.chplalex.utils.network.OnlineLiveData
 import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
@@ -31,8 +34,31 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        subscribeToNetworkChange()
         initViewModel()
         activity?.title = getString(titleRes)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showNetworkStatus()
+    }
+
+    private fun showNetworkStatus() {
+        if (isNetworkAvailable) {
+            Toast.makeText(context, R.string.dialog_message_device_is_online, Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, R.string.dialog_message_device_is_offline, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(requireContext()).observe(
+            this,
+            {
+                isNetworkAvailable = it
+                 showNetworkStatus()
+            })
     }
 
     abstract fun initViewModel()
@@ -51,21 +77,6 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
         indicatorCircular = view.findViewById(R.id.indicator_circular)
         layoutWorking = view.findViewById(layoutWorkingRes)
         layoutLoading = view.findViewById(R.id.layout_loading)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        isNetworkAvailable = isOnline(requireContext())
-        if (!isNetworkAvailable && isAlertDialogNull()) {
-            showNoInternetConnectionDialog()
-        }
-    }
-
-    protected fun showNoInternetConnectionDialog() {
-        showAlertDialog(
-            getString(R.string.dialog_title_device_is_offline),
-            getString(R.string.dialog_message_device_is_offline)
-        )
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {

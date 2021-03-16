@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -48,7 +49,16 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
         setActionbarHomeButtonAsUp()
         initViews(view)
-        setData()
+        startLoadingOrShowError()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isOnline(requireContext())) {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_online, Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_offline, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setActionbarHomeButtonAsUp() = activity?.actionBar?.let {

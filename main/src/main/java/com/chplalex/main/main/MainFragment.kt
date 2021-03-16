@@ -14,7 +14,6 @@ import com.chplalex.model.data.AppState
 import com.chplalex.model.data.DataModel
 import com.chplalex.model.data.description
 import com.chplalex.model.data.imageUrl
-import com.chplalex.utils.network.isOnline
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,11 +49,7 @@ class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.
     private val onSearchClickListener = object : SearchFragment.OnSearchClickListener {
 
         override fun onClick(searchWord: String) {
-            isNetworkAvailable = isOnline(requireContext())
             model.getData(searchWord, isNetworkAvailable)
-            if (!isNetworkAvailable) {
-                showNoInternetConnectionDialog()
-            }
         }
     }
 

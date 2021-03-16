@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_title_device_is_offline">No internet connection</string>
-    <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check internet connection.</string>
+    <string name="dialog_message_device_is_online">Device is online. You can use app.</string>
+    <string name="dialog_message_device_is_offline">Device is offline. You can not use app. Please, apply internet connection.</string>
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="empty_server_response_on_success">Empty server response on success</string>
     <string name="error_stub">Error</string>
