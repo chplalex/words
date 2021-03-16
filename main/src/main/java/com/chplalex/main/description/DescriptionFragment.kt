@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.chplalex.main.R
 import com.chplalex.utils.data.ImageLoader
+import com.chplalex.utils.network.OnlineLiveData
 import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
@@ -27,9 +28,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.lang.Exception
 
 class DescriptionFragment : BottomSheetDialogFragment() {
+
+    private val onlineLiveData: OnlineLiveData by inject { parametersOf(requireContext()) }
+    private var isNetworkAvailable: Boolean = false
+
 
     private lateinit var descriptionHeader: TextView
     private lateinit var descriptionBody: TextView
@@ -40,13 +47,34 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
     private var imageLoader = ImageLoader.Picasso
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        subscribeToNetworkChange()
+    }
+
+    private fun showNetworkStatus() {
+        if (isNetworkAvailable) {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_online, Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_offline, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun subscribeToNetworkChange() {
+        onlineLiveData.observe(
+            this,
+            {
+                isNetworkAvailable = it
+                showNetworkStatus()
+            })
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_description, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setActionbarHomeButtonAsUp()
         initViews(view)
         startLoadingOrShowError()
@@ -54,11 +82,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (isOnline(requireContext())) {
-            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_online, Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_offline, Toast.LENGTH_LONG).show()
-        }
+        showNetworkStatus()
     }
 
     private fun setActionbarHomeButtonAsUp() = activity?.actionBar?.let {
@@ -77,7 +101,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     }
 
     private fun startLoadingOrShowError() {
-        if (isOnline(requireContext())) {
+        if (isNetworkAvailable) {
             setData()
         } else {
             AlertDialogFragment.newInstance(

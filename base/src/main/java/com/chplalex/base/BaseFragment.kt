@@ -6,11 +6,9 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.chplalex.model.data.AppState
 import com.chplalex.model.data.DataModel
 import com.chplalex.utils.network.OnlineLiveData
-import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.utils.ui.makeGone
@@ -27,7 +25,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     abstract val titleRes: Int
     abstract val layoutWorkingRes: Int
 
-    private var onlineLiveData by inject<OnlineLiveData> { parametersOf(requireContext()) }
+    private val onlineLiveData: OnlineLiveData by inject { parametersOf(requireContext()) }
 
     protected var isNetworkAvailable: Boolean = false
 
@@ -57,11 +55,11 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     }
 
     private fun subscribeToNetworkChange() {
-        OnlineLiveData(requireContext()).observe(
+        onlineLiveData.observe(
             this,
             {
                 isNetworkAvailable = it
-                 showNetworkStatus()
+                showNetworkStatus()
             })
     }
 
