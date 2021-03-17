@@ -6,35 +6,28 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.InstallStateUpdatedListener
-import com.google.android.play.core.install.model.AppUpdateType.FLEXIBLE
 import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.splitcompat.SplitCompat
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 private const val DYNAMIC_FEATURE_ACTIVITY_PATH = "com.chplalex.dynamic.DynamicActivity"
 private const val DYNAMIC_FEATURE_NAME = "dynamic"
 private const val REQUEST_CODE = 8001
 
-open class TranslatorActivity : AppCompatActivity() {
+class TranslatorActivity : AppCompatActivity() {
 
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var splitInstallManager: SplitInstallManager
-
-    private val navController by inject<NavController> { parametersOf(this) }
 
     private val stateUpdatedListener = InstallStateUpdatedListener { state ->
         state?.let {
@@ -51,11 +44,14 @@ open class TranslatorActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNav.setupWithNavController(navController)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

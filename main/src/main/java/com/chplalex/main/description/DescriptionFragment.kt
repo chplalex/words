@@ -2,6 +2,7 @@ package com.chplalex.main.description
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,6 @@ import com.bumptech.glide.request.target.Target
 import com.chplalex.main.R
 import com.chplalex.utils.data.ImageLoader
 import com.chplalex.utils.network.OnlineLiveData
-import com.chplalex.utils.network.isOnline
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.utils.ui.SquareImageView
@@ -29,14 +29,12 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import java.lang.Exception
 
 class DescriptionFragment : BottomSheetDialogFragment() {
 
-    private val onlineLiveData: OnlineLiveData by inject { parametersOf(requireContext()) }
+    private val onlineLiveData: OnlineLiveData by inject()
     private var isNetworkAvailable: Boolean = false
-
 
     private lateinit var descriptionHeader: TextView
     private lateinit var descriptionBody: TextView

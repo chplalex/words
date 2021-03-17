@@ -15,8 +15,7 @@ dependencies {
     implementation(Libs.androidx_swiperefreshlayout)
     implementation(Libs.glide_glide)
 
-    implementation(Libs.koin_fragment)
-    implementation(Libs.koin_scope)
+    implementation(Libs.koin_android)
     implementation(Libs.koin_viewmodel)
 
     implementation(Libs.lifecycle_viewmodel)

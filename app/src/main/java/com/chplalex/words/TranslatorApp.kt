@@ -1,12 +1,10 @@
 package com.chplalex.words
 
 import android.app.Application
-import com.chplalex.words.di.module.application
-import com.chplalex.words.di.module.historyFragment
-import com.chplalex.words.di.module.mainFragment
-import com.chplalex.words.di.module.navigation
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class TranslatorApp : Application() {
 
@@ -14,7 +12,8 @@ class TranslatorApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(applicationContext)
-            modules(listOf(application, navigation, mainFragment, historyFragment))
+            androidLogger(Level.DEBUG)
         }
+        injectDependencies()
     }
 }

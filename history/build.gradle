@@ -13,8 +13,7 @@ dependencies {
 
     implementation(Libs.design_material)
 
-    implementation(Libs.koin_fragment)
-    implementation(Libs.koin_scope)
+    implementation(Libs.koin_android)
     implementation(Libs.koin_viewmodel)
 
     implementation(Libs.navigation_fragment)

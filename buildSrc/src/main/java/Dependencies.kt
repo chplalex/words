@@ -31,7 +31,7 @@ object Modules {
 object Versions {
     const val coroutines = "1.4.2"
     const val glide = "4.12.0"
-    const val koin = "2.2.2"
+    const val koin = "2.0.1"
     const val lifecycle = "2.0.0"
     const val navigation = "2.3.3"
     const val retrofit = "2.9.0"
@@ -65,9 +65,10 @@ object Libs {
     const val navigation_safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     //Koin
-    const val koin_fragment = "org.koin:koin-androidx-fragment:${Versions.koin}"
-    const val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin}"
-    const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    const val koin_android = "org.koin:koin-android:${Versions.koin}"
+    const val koin_scope = "org.koin:koin-android-scope:${Versions.koin}"
+    //const val koin_fragment = "org.koin:koin-androidx-fragment:${Versions.koin}"
+    const val koin_viewmodel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     // Picasso
     const val picasso = "com.squareup.picasso:picasso:2.71828"
     // Glide

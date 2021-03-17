@@ -3,8 +3,8 @@ package com.chplalex.main.main
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.main.R
@@ -15,13 +15,11 @@ import com.chplalex.model.data.DataModel
 import com.chplalex.model.data.description
 import com.chplalex.model.data.imageUrl
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import org.koin.android.scope.currentScope
 
 class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.layout.fragment_main) {
 
-    private val navController by inject<NavController> { parametersOf(requireActivity()) }
+    private val navController: NavController by lazy { findNavController() }
 
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
 
@@ -61,9 +59,11 @@ class MainFragment : com.chplalex.base.BaseFragment<AppState, MainInteractor>(R.
     }
 
     override fun initViewModel() {
-        val viewModel: MainViewModel by viewModel()
+        injectDependencies()
+
+        val viewModel: MainViewModel by currentScope.inject()
         model = viewModel
-        model.subscribe().observe(this, Observer<AppState> { renderData(it) })
+        model.subscribe().observe(this, { renderData(it) })
     }
 
     override fun initViews(view: View) {

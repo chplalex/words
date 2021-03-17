@@ -1,13 +1,12 @@
 package com.chplalex.history
 
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.base.BaseFragment
 import com.chplalex.model.data.AppState
 import com.chplalex.model.data.DataModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 
 class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragment_history) {
 
@@ -24,9 +23,11 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragm
     }
 
     override fun initViewModel() {
-        val viewModel: HistoryViewModel by viewModel()
+        injectDependencies()
+
+        val viewModel: HistoryViewModel by currentScope.inject()
         model = viewModel
-        model.subscribe().observe(this, Observer<AppState> { renderData(it) })
+        model.subscribe().observe(this, { renderData(it) })
     }
 
     override fun initViews(view: View) {
