@@ -1,4 +1,4 @@
-package com.chplalex.model.data
+package com.chplalex.model.dto
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

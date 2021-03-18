@@ -6,13 +6,14 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.chplalex.model.data.AppState
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.AppState
+import com.chplalex.model.ui.DataModel
 import com.chplalex.utils.network.OnlineLiveData
 import com.chplalex.utils.ui.AlertDialogFragment
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
 import com.chplalex.utils.ui.makeGone
 import com.chplalex.utils.ui.makeVisible
+import com.chplalex.utils.ui.viewById
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.koin.android.ext.android.inject
@@ -27,10 +28,11 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     private val onlineLiveData: OnlineLiveData by inject()
     protected var isNetworkAvailable = false
 
-    protected lateinit var indicatorLinear: LinearProgressIndicator
-    protected lateinit var indicatorCircular: CircularProgressIndicator
+    protected val indicatorLinear by viewById<LinearProgressIndicator>(R.id.indicator_linear)
+    protected val indicatorCircular by viewById<CircularProgressIndicator>(R.id.indicator_circular)
+    protected val layoutLoading by viewById<FrameLayout>(R.id.layout_loading)
+
     protected lateinit var layoutWorking: FrameLayout
-    protected lateinit var layoutLoading: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +75,7 @@ abstract class BaseFragment<T : AppState, I : IInteractor<T>>(@LayoutRes private
     }
 
     protected open fun initViews(view: View) {
-        indicatorLinear = view.findViewById(R.id.indicator_linear)
-        indicatorCircular = view.findViewById(R.id.indicator_circular)
         layoutWorking = view.findViewById(layoutWorkingRes)
-        layoutLoading = view.findViewById(R.id.layout_loading)
     }
 
     protected fun showAlertDialog(title: String?, message: String?) {

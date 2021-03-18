@@ -19,11 +19,8 @@ import com.bumptech.glide.request.target.Target
 import com.chplalex.main.R
 import com.chplalex.utils.data.ImageLoader
 import com.chplalex.utils.network.OnlineLiveData
-import com.chplalex.utils.ui.AlertDialogFragment
+import com.chplalex.utils.ui.*
 import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
-import com.chplalex.utils.ui.SquareImageView
-import com.chplalex.utils.ui.makeInVisible
-import com.chplalex.utils.ui.makeVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.squareup.picasso.Callback
@@ -36,12 +33,12 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     private val onlineLiveData: OnlineLiveData by inject()
     private var isNetworkAvailable: Boolean = false
 
-    private lateinit var descriptionHeader: TextView
-    private lateinit var descriptionBody: TextView
-    private lateinit var descriptionImage: SquareImageView
-    private lateinit var descriptionFooter: TextView
-    private lateinit var fragmentLayout: SwipeRefreshLayout
-    private lateinit var progress: LinearProgressIndicator
+    private val descriptionHeader by viewById<TextView>(R.id.description_header)
+    private val descriptionBody by viewById<TextView>(R.id.description_body)
+    private val descriptionImage by viewById<SquareImageView>(R.id.description_image)
+    private val descriptionFooter by viewById<TextView>(R.id.description_footer)
+    private val fragmentLayout by viewById<SwipeRefreshLayout>(R.id.fragment_description)
+    private val progress by viewById<LinearProgressIndicator>(R.id.description_progress)
 
     private var imageLoader = ImageLoader.Picasso
 
@@ -89,13 +86,7 @@ class DescriptionFragment : BottomSheetDialogFragment() {
     }
 
     private fun initViews(view: View) {
-        descriptionHeader = view.findViewById(R.id.description_header)
-        descriptionBody = view.findViewById(R.id.description_body)
-        descriptionImage = view.findViewById(R.id.description_image)
-        descriptionFooter = view.findViewById(R.id.description_footer)
-        fragmentLayout = view.findViewById(R.id.fragment_description)
         fragmentLayout.setOnRefreshListener { startLoadingOrShowError() }
-        progress = view.findViewById(R.id.description_progress)
     }
 
     private fun startLoadingOrShowError() {

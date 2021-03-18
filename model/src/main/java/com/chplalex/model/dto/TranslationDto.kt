@@ -1,7 +1,7 @@
-package com.chplalex.model.data
+package com.chplalex.model.dto
 
 import com.google.gson.annotations.SerializedName
 
-class Translation(
+class TranslationDto(
     @field:SerializedName("text") val text: String?
 )

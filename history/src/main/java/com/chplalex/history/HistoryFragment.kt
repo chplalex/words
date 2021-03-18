@@ -4,8 +4,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.base.BaseFragment
-import com.chplalex.model.data.AppState
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.AppState
+import com.chplalex.model.ui.DataModel
 import org.koin.android.scope.currentScope
 
 class HistoryFragment : BaseFragment<AppState, HistoryInteractor>(R.layout.fragment_history) {

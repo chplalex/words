@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.ui.DataModel
+import com.chplalex.utils.ui.viewById
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
@@ -29,8 +30,10 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        private val header by viewById<TextView>(R.id.item_history_header)
+
         fun bind(data: DataModel) {
-            val header = itemView.findViewById<TextView>(R.id.item_history_header)
             if (layoutPosition == RecyclerView.NO_POSITION) return
             header.text = data.word
             header.setOnClickListener {

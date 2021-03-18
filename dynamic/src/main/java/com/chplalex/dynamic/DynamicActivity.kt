@@ -15,17 +15,18 @@ import com.bumptech.glide.request.target.Target
 import com.chplalex.utils.data.ImageLoader
 import com.chplalex.utils.ui.makeGone
 import com.chplalex.utils.ui.makeVisible
+import com.chplalex.utils.ui.viewById
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.*
 
 class DynamicActivity : AppCompatActivity() {
 
-    private lateinit var layout: SwipeRefreshLayout
-    private lateinit var imageView: ImageView
-    private lateinit var textViewTitle: TextView
-    private lateinit var textViewExplanation: TextView
-    private lateinit var progressIndicator: LinearProgressIndicator
+    private val layout by viewById<SwipeRefreshLayout>(R.id.nasa_apod_layout)
+    private val imageView by viewById<ImageView>(R.id.nasa_apod_image)
+    private val textViewTitle by viewById<TextView>(R.id.nasa_apod_title)
+    private val textViewExplanation by viewById<TextView>(R.id.nasa_apod_explanation)
+    private val progressIndicator by viewById<LinearProgressIndicator>(R.id.nasa_apod_progress_indicator)
 
     private var imageLoader = ImageLoader.Glide
 
@@ -49,12 +50,7 @@ class DynamicActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        layout = findViewById(R.id.nasa_apod_layout)
         layout.setOnRefreshListener(refreshListener)
-        imageView = findViewById(R.id.nasa_apod_image)
-        textViewTitle = findViewById(R.id.nasa_apod_title)
-        textViewExplanation = findViewById(R.id.nasa_apod_explanation)
-        progressIndicator = findViewById(R.id.nasa_apod_progress_indicator)
     }
 
     private fun loadData() {

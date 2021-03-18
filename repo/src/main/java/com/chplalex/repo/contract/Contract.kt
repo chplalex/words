@@ -1,6 +1,6 @@
 package com.chplalex.repo.contract
 
-import com.chplalex.model.data.AppState
+import com.chplalex.model.AppState
 
 interface IRepository<T> {
     suspend fun getData(word: String): T

@@ -2,7 +2,7 @@ package com.chplalex.main.main
 
 import androidx.lifecycle.LiveData
 import com.chplalex.base.BaseViewModel
-import com.chplalex.model.data.AppState
+import com.chplalex.model.AppState
 import com.chplalex.utils.parseSearchResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

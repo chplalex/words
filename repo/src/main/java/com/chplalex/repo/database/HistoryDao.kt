@@ -1,7 +1,7 @@
 package com.chplalex.repo.database
 
 import androidx.room.*
-import com.chplalex.model.data.HistoryEntity
+import com.chplalex.model.dto.HistoryEntity
 
 @Dao
 interface HistoryDao {

@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.main.R
 import com.chplalex.main.search.SearchFragment
 import com.chplalex.main.search.SearchFragment.Companion.SEARCH_FRAGMENT_TAG
-import com.chplalex.model.data.AppState
-import com.chplalex.model.data.DataModel
-import com.chplalex.model.data.description
-import com.chplalex.model.data.imageUrl
+import com.chplalex.model.AppState
+import com.chplalex.model.ui.DataModel
+import com.chplalex.model.ui.description
+import com.chplalex.model.ui.imageUrl
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.scope.currentScope
 

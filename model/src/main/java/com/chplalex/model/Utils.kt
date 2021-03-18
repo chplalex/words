@@ -1,6 +1,23 @@
 package com.chplalex.utils
 
-import com.chplalex.model.data.*
+import com.chplalex.model.AppState
+import com.chplalex.model.dto.*
+import com.chplalex.model.ui.*
+
+fun mapDataModelDtoToUi(searchResults: List<DataModelDto>): List<DataModel> {
+    return searchResults.map { searchResult ->
+        var meanings: List<Meaning> = listOf()
+        searchResult.meanings?.let {
+            meanings = it.map { meaningsDto ->
+                Meaning(
+                    Translation(meaningsDto?.translation?.text ?: ""),
+                    meaningsDto?.imageUrl ?: ""
+                )
+            }
+        }
+        DataModel(searchResult.word ?: "", meanings)
+    }
+}
 
 fun parseSearchResults(appState: AppState, isOnline: Boolean) = AppState.Success(mapResult(appState, isOnline))
 
@@ -23,17 +40,17 @@ private fun getSuccessResultData(state: AppState.Success, isOnline: Boolean, new
 
 private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
 
-    if (dataModel.word.isNullOrBlank() || dataModel.meanings.isNullOrEmpty()) {
+    if (dataModel.word.isEmpty() || dataModel.meanings.isEmpty()) {
         return
     }
 
-    val newMeanings = arrayListOf<Meanings>()
+    val newMeanings = arrayListOf<Meaning>()
 
     for (meaning in dataModel.meanings) {
-        if (meaning.translation == null || meaning.translation.text.isNullOrBlank()) {
+        if (meaning.translation.translatedMeaning.isEmpty()) {
             continue
         }
-        newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+        newMeanings.add(Meaning(meaning.translation, meaning.imageUrl))
     }
 
     if (newMeanings.isNotEmpty()) {
@@ -41,22 +58,22 @@ private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel
     }
 }
 
-fun convertMeaningsToString(meanings: List<Meanings>): String {
+fun convertMeaningsToString(meanings: List<Meaning>): String {
     var meaningsSeparatedByComma = String()
     for ((index, meaning) in meanings.withIndex()) {
         meaningsSeparatedByComma += if (index + 1 != meanings.size) {
-            String.format("%s%s", meaning.translation?.text, ", ")
+            String.format("%s%s", meaning.translation.translatedMeaning, ", ")
         } else {
-            meaning.translation?.text
+            meaning.translation.translatedMeaning
         }
     }
     return meaningsSeparatedByComma
 }
 
-fun mapHistoryListEntityToModel(entities: List<HistoryEntity>): List<DataModel> {
-    val models = arrayListOf<DataModel>()
+fun mapHistoryListEntityToModel(entities: List<HistoryEntity>): List<DataModelDto> {
+    val models = arrayListOf<DataModelDto>()
     for (entity in entities) {
-        models.add(DataModel(entity.word, arrayListOf(Meanings(Translation(entity.description), entity.imageUrl))))
+        models.add(DataModelDto(entity.word, arrayListOf(MeaningDto(TranslationDto(entity.description), entity.imageUrl))))
     }
     return models
 }

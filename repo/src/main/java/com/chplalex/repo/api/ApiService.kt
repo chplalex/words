@@ -1,6 +1,6 @@
 package com.chplalex.repo.api
 
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.dto.DataModelDto
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +13,7 @@ private const val API_BASE_URL = "https://dictionary.skyeng.ru/api/public/v1/"
 
 interface ApiService {
     @GET("words/search")
-    suspend fun searchAsync(@Query("search") wordToSearch: String): List<DataModel>
+    suspend fun searchAsync(@Query("search") wordToSearch: String): List<DataModelDto>
 }
 
 fun createRetrofit(interceptor: Interceptor) = Retrofit.Builder()

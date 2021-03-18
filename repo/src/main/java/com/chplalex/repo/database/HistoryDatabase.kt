@@ -2,7 +2,7 @@ package com.chplalex.repo.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.chplalex.model.data.HistoryEntity
+import com.chplalex.model.dto.HistoryEntity
 
 const val HISTORY_DB_NAME = "HistoryDB"
 

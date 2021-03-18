@@ -15,9 +15,9 @@ import com.google.android.material.textfield.TextInputEditText
 
 class SearchFragment : BottomSheetDialogFragment() {
 
-    private lateinit var searchEditText: TextInputEditText
-    private lateinit var clearImageView: ImageView
-    private lateinit var searchButton: TextView
+    private val searchEditText by viewById<TextInputEditText>(R.id.edit_text_search)
+    private val clearImageView by viewById<ImageView>(R.id.image_view_clear_search)
+    private val searchButton by viewById<TextView>(R.id.button_search)
 
     private var onSearchClickListener: OnSearchClickListener? = null
 
@@ -61,9 +61,6 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchEditText = view.findViewById(R.id.edit_text_search)
-        clearImageView = view.findViewById(R.id.image_view_clear_search)
-        searchButton = view.findViewById(R.id.button_search)
 
         searchButton.setOnClickListener(onSearchButtonClickListener)
         searchEditText.addTextChangedListener(textWatcher)

@@ -3,7 +3,7 @@ package com.chplalex.words
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.room.Room
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.dto.DataModelDto
 import com.chplalex.repo.api.ApiService
 import com.chplalex.repo.api.BaseInterceptor
 import com.chplalex.repo.api.createRetrofit
@@ -30,11 +30,11 @@ private val loadModules by lazy {
 val application = module {
     // (Remote repository == Retrofit) DI
     single<ApiService> { createRetrofit(BaseInterceptor.interceptor).create(ApiService::class.java) }
-    single<IRepository<List<DataModel>>> { RepositoryImpl(RetrofitImpl(get<ApiService>())) }
+    single<IRepository<List<DataModelDto>>> { RepositoryImpl(RetrofitImpl(get<ApiService>())) }
     // (Local repository = Room) DI
     single<HistoryDatabase> { Room.databaseBuilder(get(), HistoryDatabase::class.java, HISTORY_DB_NAME).build() }
     single<HistoryDao> { get<HistoryDatabase>().historyDao() }
-    single<IRepositoryLocal<List<DataModel>>> { RepositoryImplLocal(RoomImpl(get<HistoryDao>())) }
+    single<IRepositoryLocal<List<DataModelDto>>> { RepositoryImplLocal(RoomImpl(get<HistoryDao>())) }
     // OnlineLiveData
     single<OnlineLiveData> { OnlineLiveData(androidContext()) }
     // NavController

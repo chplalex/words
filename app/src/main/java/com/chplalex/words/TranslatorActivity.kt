@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.chplalex.utils.ui.viewById
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -47,10 +48,10 @@ class TranslatorActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        val bottomNav by viewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNav.setupWithNavController(navController)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar by viewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
     }
 

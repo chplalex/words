@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.main.R
-import com.chplalex.model.data.DataModel
+import com.chplalex.model.ui.DataModel
+import com.chplalex.utils.ui.viewById
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener,
@@ -34,13 +35,13 @@ class MainAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val header = view.findViewById<TextView>(R.id.item_main_header)
-        private val description = view.findViewById<TextView>(R.id.item_main_description)
+        private val header by viewById<TextView>(R.id.item_main_header)
+        private val description by viewById<TextView>(R.id.item_main_description)
 
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 header.text = data.word
-                description.text = com.chplalex.utils.convertMeaningsToString(data.meanings!!)
+                description.text = com.chplalex.utils.convertMeaningsToString(data.meanings)
                 itemView.setOnClickListener { onListItemClickListener.onItemClick(data) }
             }
 

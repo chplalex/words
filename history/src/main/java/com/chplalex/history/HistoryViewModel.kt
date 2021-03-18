@@ -1,7 +1,7 @@
 package com.chplalex.history
 
 import androidx.lifecycle.LiveData
-import com.chplalex.model.data.AppState
+import com.chplalex.model.AppState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
