@@ -1,0 +1,197 @@
+package com.chplalex.main.description
+
+import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.chplalex.main.R
+import com.chplalex.utils.data.ImageLoader
+import com.chplalex.utils.network.OnlineLiveData
+import com.chplalex.utils.ui.*
+import com.chplalex.utils.ui.AlertDialogFragment.Companion.ALERT_DIALOG_FRAGMENT_TAG
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
+import java.lang.Exception
+
+class DescriptionFragment : BottomSheetDialogFragment() {
+
+    private val onlineLiveData: OnlineLiveData by inject()
+    private var isNetworkAvailable: Boolean = false
+
+    private val descriptionHeader by viewById<TextView>(R.id.description_header)
+    private val descriptionBody by viewById<TextView>(R.id.description_body)
+    private val descriptionImage by viewById<SquareImageView>(R.id.description_image)
+    private val descriptionFooter by viewById<TextView>(R.id.description_footer)
+    private val fragmentLayout by viewById<SwipeRefreshLayout>(R.id.fragment_description)
+    private val progress by viewById<LinearProgressIndicator>(R.id.description_progress)
+
+    private var imageLoader = ImageLoader.Picasso
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        subscribeToNetworkChange()
+    }
+
+    private fun showNetworkStatus() {
+        if (isNetworkAvailable) {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_online, Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, com.chplalex.base.R.string.dialog_message_device_is_offline, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun subscribeToNetworkChange() {
+        onlineLiveData.observe(
+            this,
+            {
+                isNetworkAvailable = it
+                showNetworkStatus()
+            })
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_description, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setActionbarHomeButtonAsUp()
+        initViews(view)
+        startLoadingOrShowError()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showNetworkStatus()
+    }
+
+    private fun setActionbarHomeButtonAsUp() = activity?.actionBar?.let {
+        it.setHomeButtonEnabled(true)
+        it.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initViews(view: View) {
+        fragmentLayout.setOnRefreshListener { startLoadingOrShowError() }
+    }
+
+    private fun startLoadingOrShowError() {
+        if (isNetworkAvailable) {
+            setData()
+        } else {
+            AlertDialogFragment.newInstance(
+                getString(R.string.dialog_title_device_is_offline),
+                getString(R.string.dialog_message_device_is_offline)
+            ).show(
+                parentFragmentManager,
+                ALERT_DIALOG_FRAGMENT_TAG
+            )
+            stopRefreshAnimationIfNeeded()
+        }
+    }
+
+    private fun stopRefreshAnimationIfNeeded() {
+        if (fragmentLayout.isRefreshing) {
+            fragmentLayout.isRefreshing = false
+        }
+    }
+
+    private fun setData() {
+        descriptionHeader.text = arguments?.getString("word") ?: "no arguments"
+        descriptionBody.text = arguments?.getString("description") ?: "no arguments"
+        descriptionFooter.text = "(image loaded by %s)".format(imageLoader.loaderName)
+        val imageUrl: String? = arguments?.getString("image_url")
+        if (imageUrl.isNullOrBlank()) {
+            stopRefreshAnimationIfNeeded()
+        } else {
+            showProgress()
+            when (imageLoader) {
+                ImageLoader.Picasso -> {
+                    loadImageWithPicasso(descriptionImage, imageUrl)
+                    imageLoader = ImageLoader.Glide
+                }
+                ImageLoader.Glide -> {
+                    loadImageWithGlide(descriptionImage, imageUrl)
+                    imageLoader = ImageLoader.Picasso
+                }
+            }
+        }
+    }
+
+    private fun loadImageWithPicasso(imageView: ImageView, imageLink: String) {
+        Picasso.get()
+            .load("https:$imageLink")
+            .placeholder(R.drawable.ic_no_photo).fit().centerCrop()
+            .into(imageView, object : Callback {
+                override fun onSuccess() {
+                    stopRefreshAnimationIfNeeded()
+                    hideProgress()
+                }
+
+                override fun onError(e: Exception?) {
+                    stopRefreshAnimationIfNeeded()
+                    hideProgress()
+                    imageView.setImageResource(R.drawable.ic_load_error)
+                }
+            })
+    }
+
+    private fun loadImageWithGlide(imageView: ImageView, imageLink: String) {
+        Glide.with(imageView)
+            .load("https:$imageLink")
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    stopRefreshAnimationIfNeeded()
+                    hideProgress()
+                    imageView.setImageResource(R.drawable.ic_load_error)
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    stopRefreshAnimationIfNeeded()
+                    hideProgress()
+                    return false
+                }
+            })
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.ic_no_photo)
+                    .centerCrop()
+            )
+            .into(imageView)
+    }
+
+    private fun showProgress() {
+        progress.makeVisible()
+    }
+
+    private fun hideProgress() {
+        progress.makeInVisible()
+    }
+}
+

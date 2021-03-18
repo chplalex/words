@@ -1,52 +1,34 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    dynamicFeatures = [Modules.dynamic]
+}
 
-    defaultConfig {
-        applicationId "com.chplalex.words"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+configurations {
+    cleanedAnnotations
+    compile.exclude group: 'org.jetbrains' , module:'annotations'
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    // Rx-Java
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.9'
-    // Retrofit 2
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation project(Modules.base)
+    implementation project(Modules.history)
+    implementation project(Modules.main)
+    implementation project(Modules.model)
+    implementation project(Modules.navigation)
+    implementation project(Modules.repo)
+    implementation project(Modules.utils)
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation(Libs.google_play_core)
+
+    implementation(Libs.koin_android)
+    implementation(Libs.koin_scope)
+    implementation(Libs.koin_viewmodel)
+
+    implementation(Libs.navigation_fragment)
+    implementation(Libs.navigation_ui)
 }

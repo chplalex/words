@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion Config.sdk_compile
+    buildToolsVersion Config.build_tools_version
+
+    defaultConfig {
+        minSdkVersion Config.sdk_min
+        targetSdkVersion Config.sdk_target
+
+        versionCode Release.version_code
+        versionName Release.version_name
+
+        testInstrumentationRunner Config.test_instrumentation_runner
+    }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def NASA_API_KEY  = properties.getProperty("NASA_API_KEY", "")
+        it.buildConfigField "String", "NASA_API_KEY", NASA_API_KEY
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
+    }
+
+    kotlinOptions {
+        jvmTarget = Config.jvm_target
+    }
+}
+
+dependencies {
+    implementation project(Modules.app)
+    implementation project(Modules.utils)
+
+    implementation(Libs.androidx_appcompat)
+    implementation(Libs.androidx_swiperefreshlayout)
+    implementation(Libs.coroutines_android)
+    implementation(Libs.design_material)
+    implementation(Libs.glide_compiler)
+    implementation(Libs.glide_glide)
+    implementation(Libs.kotlin_core)
+    implementation(Libs.picasso)
+    implementation(Libs.retrofit_converter_gson)
+    implementation(Libs.retrofit_logging_interceptor)
+    implementation(Libs.retrofit_retrofit)
+
+    androidTestImplementation(Libs.androidx_test_annotation)
+    androidTestImplementation(Libs.androidx_test_espresso_core)
+    androidTestImplementation(Libs.androidx_test_ext)
+    testImplementation(Libs.test_junit)
+}
