@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="flow_app" type="id" />
+    <item name="flow_main" type="id" />
+    <item name="flow_history" type="id"/>
+</resources>
